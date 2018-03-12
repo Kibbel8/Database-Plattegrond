@@ -33,5 +33,12 @@ namespace Database_Plattegrond.Controllers
 
             return View();
         }
+
+        public ActionResult Domeinen()
+        {
+            ViewBag.Message = "Domeinen";
+
+            return View();
+        }
     }
 }
