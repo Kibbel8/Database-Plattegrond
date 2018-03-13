@@ -26,5 +26,19 @@ namespace Database_Plattegrond.Controllers
 
             return View();
         }
+
+        public ActionResult Dataset_Kunst()
+        {
+            ViewBag.Message = "Kunst dataset";
+
+            return View();
+        }
+
+        public ActionResult Domeinen()
+        {
+            ViewBag.Message = "Domeinen";
+
+            return View();
+        }
     }
 }

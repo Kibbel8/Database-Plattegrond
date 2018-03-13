@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Dataset_Kunst";
+}
+<br />
+<p>Domein > Subdomein > Kunst</p>
+
+<h2>Kunst</h2>
+
+<div style="width: 600px">
+    <h4>Beschrijving</h4>
+    <p>
+        Bevat data over alle kunstwerken in Zoetermeer. De titel, geo-locatie, naam v.
+        kunstenaar, materiaal en jaar staan erin beschreven. Ook staan er links naar de
+        betreffende pagina van de website van Gemeente Zoetermeer, met gedetailleerde informatie en foto's.
+    </p>
+</div>
+
+<h4>Links</h4>
+<p>
+    Applicatie: <a href="">Schilderijen en kunstobjecten</a><br />
+    Database: <a href="">Openbare Kunstobjecten</a><br />
+</p>
+<button type="button">Bewerk</button>
+
+<hr />
+
+<h4>Contactgegevens beheerder</h4>
+<p>
+    Naam: Lisa Kunst<br />
+    E-mail: <a href="mailto:L.Kunst@Zoetermeer.nl">L.Kunst@Zoetermeer.nl</a><br />
+    Functie: Kunstig<br />
+    Afdeling: Kunst & Cultuur<br />
+    <abbr title="Telefoon Nummer">Tel:</abbr> +31798568426
+</p>
+
+
+<hr />
+
+
+<h4>Comment</h4>
+@Html.TextArea("Comment", "Plaats een opmerking", new { @class = "form-control" })
+<br />
+<button type="button">Verzend</button>
+
+
+<hr />
+
+
+<p>
+    <strong>Naam:</strong>    Henk de Vries<br />
+    <strong>Datum:</strong>   07/03/2018 15:01 CET<br />
+    <strong>Opmerking:</strong> Wat een goed beschreven dataset... Helemaal top.......<br />
+</p>
+<br />
+<p>
+    <strong>Naam:</strong>    Lisa Kunst<br />
+    <strong>Datum:</strong>   31/02/2018 9:48 CET<br />
+    <strong>Opmerking:</strong> Hey uhhhhhhhh ik ben niet de beheerder hiervan???? <br />
+</p>
