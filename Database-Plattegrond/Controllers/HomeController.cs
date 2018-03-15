@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Database_Plattegrond.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -39,6 +40,19 @@ namespace Database_Plattegrond.Controllers
             ViewBag.Message = "Domeinen";
 
             return View();
+        }
+
+        public ActionResult Datasets()
+        {
+            ViewBag.Message = "Datasets";
+
+            Dataset set1 = new Dataset { Naam = "Kunst", Beschrijving = "Dataset over kunst" };
+            Dataset set2 = new Dataset { Naam = "Bomen", Beschrijving = "Dataset over bomen" };
+
+            List<Dataset> datasets = new List<Dataset> { set1, set2 };
+            DatasetsViewModel datasetsViewModel = new DatasetsViewModel { Datasets = datasets };
+
+            return View(datasetsViewModel);
         }
     }
 }
