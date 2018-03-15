@@ -188,8 +188,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Datasets.cshtml" />
-    <Content Include="Views\Home\Dataset_Kunst.cshtml" />
     <Content Include="Views\Home\Domeinen.cshtml" />
+    <Content Include="Views\Home\Dataset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
