@@ -17,7 +17,7 @@
     Applicatie: <a href="">app</a><br />
     Database: <a href="">db</a><br />
 </p>
-<input type="button" name="button" class="button1" value="Bewerk">
+<a href="/home/DatasetBewerken" class="btn btn-default" aria-label="Left Align">Bewerk&nbsp&nbsp&nbsp<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
 
 <hr />
 
@@ -35,9 +35,10 @@
 
 
 <h4>Comment</h4>
-@Html.TextArea("Comment", "Plaats een opmerking", new { @class = "form-control" })
-<br />
-<button type="button">Verzend</button>
+<p>
+    @Html.TextArea("Comment", "Plaats een opmerking", new { @class = "form-control" })
+</p>
+<a href="/Home/Dataset" class="btn btn-default" aria-label="Left Align">Verzend</a>
 
 
 <hr />

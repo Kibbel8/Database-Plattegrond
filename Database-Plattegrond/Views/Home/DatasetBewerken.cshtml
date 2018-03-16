@@ -1,0 +1,18 @@
+﻿@model Database_Plattegrond.Models.Dataset
+@{
+    ViewBag.Title = "Dataset Bewerken";
+}
+<h2>Dataset Bewerken</h2>
+
+
+<form action="/Home/Dataset" method="post">
+    <p>
+        @Html.Label("Naam")
+        @Html.TextBox("Naam", Model.Naam, new { @class = "form-control " })
+    </p>
+    <p>
+        @Html.Label("Beschrijving")
+        @Html.TextArea("Beschrijving", Model.Beschrijving, new { @class = "form-control" })
+    </p>
+    <input class="form-control" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
+</form>
