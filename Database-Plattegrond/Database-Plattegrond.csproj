@@ -142,10 +142,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DatasetController.cs" />
+    <Compile Include="Controllers\DomeinenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Beheerder.cs" />
     <Compile Include="Models\Dataset.cs" />
     <Compile Include="Models\DatasetsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
