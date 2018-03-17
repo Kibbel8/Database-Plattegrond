@@ -193,6 +193,7 @@
     <Content Include="Views\Home\Datasets.cshtml" />
     <Content Include="Views\Home\Domeinen.cshtml" />
     <Content Include="Views\Home\Dataset.cshtml" />
+    <Content Include="Views\Home\DatasetBewerken.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

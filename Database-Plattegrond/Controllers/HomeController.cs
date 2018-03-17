@@ -40,6 +40,18 @@ namespace Database_Plattegrond.Controllers
             return View(dataset);
         }
 
+        public ActionResult DatasetBewerken()
+        {
+            var dataset = new Dataset
+                {
+                    Naam = "Kunst",
+                    Beschrijving = "Bevat data over alle kunstwerken in Zoetermeer. De titel, geo-locatie, naam v. kunstenaar, materiaal en jaar staan erin beschreven. Ook staan er links naar de betreffende pagina van de website van Gemeente Zoetermeer, met gedetailleerde informatie en foto's."
+                };
+            ViewBag.Message = "Dataset Bewerken";
+
+            return View(dataset);
+        }
+
         public ActionResult Domeinen()
         {
             ViewBag.Message = "Domeinen";
