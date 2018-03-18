@@ -23,7 +23,7 @@ namespace Database_Plattegrond.Controllers
             return View(datasetsViewModel);
         }
 
-        public ActionResult Dataset()
+        public ActionResult Detail()
         {
             var dataset = new Dataset
             {
@@ -45,6 +45,13 @@ namespace Database_Plattegrond.Controllers
             ViewBag.Message = "Dataset Bewerken";
 
             return View(dataset);
+        }
+
+        public ActionResult Toevoegen()
+        {
+            ViewBag.Message = "Dataset Pagina toevoegen";
+
+            return View();
         }
 
     }

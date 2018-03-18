@@ -23,5 +23,12 @@ namespace Database_Plattegrond.Controllers
             Domein a = new Domein { Id = "HAHA", Naam = "Kunst", SubdomeinVan = new List<Domein>() };
             return View(a);
         }
+
+        public ActionResult Toevoegen()
+        {
+            ViewBag.Message = "Domein toevoegen";
+
+            return View();
+        }
     }
 }

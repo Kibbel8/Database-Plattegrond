@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Dataset pagina toevoegen";
+}
+
+<h2>@ViewBag.Message</h2>
+
+<form action="/dataset/detail" method="post">
+    <p>
+        @Html.Label("Locatie")<br />
+        Domein > Kunst > ...
+    </p>
+    <p>
+        @Html.Label("Naam")
+        @Html.TextBox("Naam", null, new { @class = "form-control " })
+    </p>
+    <p>
+        @Html.Label("Beschrijving")
+        @Html.TextArea("Beschrijving", null, new { @class = "form-control" })
+    </p>
+    <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
+</form>

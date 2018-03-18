@@ -192,11 +192,13 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Datasets\Index.cshtml" />
+    <Content Include="Views\Dataset\Index.cshtml" />
     <Content Include="Views\Domeinen\Index.cshtml" />
-    <Content Include="Views\Datasets\Detail.cshtml" />
-    <Content Include="Views\Datasets\DatasetBewerken.cshtml" />
+    <Content Include="Views\Dataset\Detail.cshtml" />
+    <Content Include="Views\Dataset\DatasetBewerken.cshtml" />
     <Content Include="Views\Domeinen\DomeinenBewerken.cshtml" />
+    <Content Include="Views\Dataset\Toevoegen.cshtml" />
+    <Content Include="Views\Domeinen\Toevoegen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

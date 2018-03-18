@@ -1,18 +1,14 @@
 ﻿@model Database_Plattegrond.Models.Domein
 @{
-    ViewBag.Title = "Dataset Bewerken";
+    ViewBag.Title = "Domein Bewerken";
 }
-<h2>Dataset Bewerken</h2>
+<h2>Domein Bewerken</h2>
 
 
-<form action="/Home/Dataset" method="post">
+<form action="/domeinen/index" method="post">
     <p>
         @Html.Label("Naam")
         @Html.TextBox("Naam", Model.Naam, new { @class = "form-control " })
-    </p>
-    <p>
-        @Html.Label("Beschrijving")
-        @Html.TextArea("Beschrijving", "Kunst", new { @class = "form-control" })
     </p>
     <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
 </form>

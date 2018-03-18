@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Domein toevoegen";
+}
+
+<h2>@ViewBag.Message</h2>
+
+<form action="/domeinen/index" method="post">
+    <p>
+        @Html.Label("Naam")
+        @Html.TextBox("Naam", null, new { @class = "form-control " })
+    </p>
+    <p>
+        <input class="btn btn-default" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
+    </p>
+</form>
