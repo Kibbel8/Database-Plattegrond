@@ -1,4 +1,5 @@
-﻿using Database_Plattegrond.Models;
+﻿using Database_Plattegrond.DatabaseService;
+using Database_Plattegrond.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,9 @@ namespace Database_Plattegrond.Controllers
     {
         public ActionResult Index()
         {
+            TestDatabaseService a = new TestDatabaseService();
+            a.DoInsertQuery();
+            a.DoGetQuery();
             return View();
         }
 
@@ -70,6 +74,12 @@ namespace Database_Plattegrond.Controllers
             DatasetsViewModel datasetsViewModel = new DatasetsViewModel { Datasets = datasets };
 
             return View(datasetsViewModel);
+        }
+
+        public ActionResult DomeinenBewerken()
+        {
+            Domein a = new Domein { Id = "HAHA", Naam = "Kunst", SubdomeinVan = new List<Domein>() };
+            return View(a);
         }
     }
 }

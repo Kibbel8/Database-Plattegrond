@@ -1,4 +1,4 @@
-﻿@model Database_Plattegrond.Models.Dataset
+﻿@model Database_Plattegrond.Models.Domein
 @{
     ViewBag.Title = "Dataset Bewerken";
 }
@@ -12,7 +12,7 @@
     </p>
     <p>
         @Html.Label("Beschrijving")
-        @Html.TextArea("Beschrijving", Model.Beschrijving, new { @class = "form-control" })
+        @Html.TextArea("Beschrijving", "Kunst", new { @class = "form-control" })
     </p>
     <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
 </form>

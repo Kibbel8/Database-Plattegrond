@@ -4,15 +4,18 @@
 }
 
 <h2>Domeinen</h2>
-<form action="/action_page.php">
-    Zoek <input type="text" name="fname">
-    <input type="submit" value="Zoeks"><br>
-</form>
+<div class="form-group">
+    <form action="/action_page.php">
+        <div class="form-group">
+            Zoek <input class="form-control" type="text" name="fname"> 
+            <input class="btn btn-success" type="submit" value="Zoek"><br>
+        </div>
+    </form>
 
-<textarea rows="20" cols="400">
- 
+<textarea class="form-control" rows="20" cols="400">
 </textarea><br>
 
-<button type="button">Voeg domein toe</button>
-<button type="button">Bekijk</button>
+</div>
+<button class="btn btn-info" type="button">Voeg domein toe</button>
+<button class="btn btn-info" type="button">Bekijk</button>
 
