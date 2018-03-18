@@ -56,9 +56,15 @@ namespace Database_Plattegrond.DatabaseService
                 connection.Open();
                 command.CommandText = "Update dataset SET naam = @naam, beschrijving = @beschrijving, datum_aangemaakt = @datum_aangemaakt, link_open_data = @link_open_data, zoektermen = @zoektermen, eigenaar = @eigenaar, applicatie = @applicatie WHERE ID=@ID";
                 command.Parameters.AddWithValue("@ID", dataset.Id);
-                command.Parameters.AddWithValue("@naam", dataset.Naam);
-                command.Parameters.AddWithValue("@beschrijving", dataset.Beschrijving);
-                command.Parameters.AddWithValue("@datum_aangemaakt", dataset.DatumAangemaakt);
+                if (dataset.Naam == null)
+                    command.Parameters.AddWithValue("@naam", DBNull.Value);
+                else
+                    command.Parameters.AddWithValue("@naam", dataset.Naam);
+                command.Parameters.AddWithValue("@beschrijving", dataset.Beschrijving ?? "");
+                if (dataset.DatumAangemaakt == null)
+                    command.Parameters.AddWithValue("@datum_aangemaakt", DBNull.Value);
+                else
+                    command.Parameters.AddWithValue("@datum_aangemaakt", dataset.DatumAangemaakt);
                 if (dataset.LinkOpenData == null)
                     command.Parameters.AddWithValue("@link_open_data", DBNull.Value);
                 else
