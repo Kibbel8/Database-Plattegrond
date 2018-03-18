@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Database_Plattegrond.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,16 @@ namespace Database_Plattegrond.Controllers
         // GET: Domeinen
         public ActionResult Index()
         {
+            ViewBag.Message = "Domeinen";
+
             return View();
+        }
+
+
+        public ActionResult DomeinenBewerken()
+        {
+            Domein a = new Domein { Id = "HAHA", Naam = "Kunst", SubdomeinVan = new List<Domein>() };
+            return View(a);
         }
     }
 }
