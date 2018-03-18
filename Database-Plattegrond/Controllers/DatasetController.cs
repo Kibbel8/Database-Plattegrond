@@ -16,8 +16,8 @@ namespace Database_Plattegrond.Controllers
             {
                 Naam = "Kunst",
                 Beschrijving = "Bevat data over alle kunstwerken in Zoetermeer. De titel, geo-locatie, naam v. kunstenaar, materiaal en jaar staan erin beschreven.Ook staan er links naar de betreffende pagina van de website van Gemeente Zoetermeer, met gedetailleerde informatie en foto's.",
-                Applicatie = "Schilderijen en kunstobjecten",
-                Database = "Openbare kunstobjecten"
+                //Applicatie = "Schilderijen en kunstobjecten",
+                //Database = "Openbare kunstobjecten"
             };
             return View(dataset);
         }
