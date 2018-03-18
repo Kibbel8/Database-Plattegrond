@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Database_Plattegrond.Models;
+using Database_Plattegrond.DatabaseService;
 
 namespace Database_Plattegrond.Controllers
 {
-    public class DatasetController : Controller
+    public class DatasetsController : Controller
     {
         // GET: Dataset
         public ActionResult Index()
@@ -23,29 +24,34 @@ namespace Database_Plattegrond.Controllers
             return View(datasetsViewModel);
         }
 
-        public ActionResult Dataset()
+        public ActionResult Details(int? id = -1)
         {
-            var dataset = new Dataset
-            {
-                Naam = "Kunst",
-                Beschrijving = "Bevat data over alle kunstwerken in Zoetermeer. De titel, geo-locatie, naam v. kunstenaar, materiaal en jaar staan erin beschreven. Ook staan er links naar de betreffende pagina van de website van Gemeente Zoetermeer, met gedetailleerde informatie en foto's."
-            };
             ViewBag.Message = "Dataset pagina";
 
+            DatasetsDatabaseService dds = new DatasetsDatabaseService();
+            Dataset dataset = dds.GetDatasetFromId(id.Value);
+
             return View(dataset);
         }
 
-        public ActionResult DatasetBewerken()
+        public ActionResult DatasetBewerken(int? id = -1)
         {
-            var dataset = new Dataset
-            {
-                Naam = "Kunst",
-                Beschrijving = "Bevat data over alle kunstwerken in Zoetermeer. De titel, geo-locatie, naam v. kunstenaar, materiaal en jaar staan erin beschreven. Ook staan er links naar de betreffende pagina van de website van Gemeente Zoetermeer, met gedetailleerde informatie en foto's."
-            };
             ViewBag.Message = "Dataset Bewerken";
 
+            DatasetsDatabaseService dds = new DatasetsDatabaseService();
+            Dataset dataset = dds.GetDatasetFromId(id.Value);
+
             return View(dataset);
         }
 
+        [HttpPost]
+        public ActionResult DatasetBewerken(Dataset model)
+        {
+            ViewBag.Message = "Dataset Bewerken";
+
+            DatasetsDatabaseService dds = new DatasetsDatabaseService();
+            int rowsAffected = dds.UpdateDataset(model);
+            return View(model);
+        }
     }
 }

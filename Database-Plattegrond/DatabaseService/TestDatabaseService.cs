@@ -16,10 +16,15 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "insert into TestTable values(@ID, @Int, @Date)";
-                command.Parameters.AddWithValue("@ID", "12445");
-                command.Parameters.AddWithValue("@Int", 1);
-                command.Parameters.AddWithValue("@Date", DateTime.Now);
+                command.CommandText = "insert into dataset values(@ID, @naam, @beschrijving, @datum_aangemaakt, @link_open_data, @zoektermen, @eigenaar, @applicatie)";
+                command.Parameters.AddWithValue("@ID", 1);
+                command.Parameters.AddWithValue("@naam", "Kunst");
+                command.Parameters.AddWithValue("@beschrijving", "Dataset over kunst");
+                command.Parameters.AddWithValue("@datum_aangemaakt", DateTime.Now);
+                command.Parameters.AddWithValue("@link_open_data", DBNull.Value);
+                command.Parameters.AddWithValue("@zoektermen", "Kunst | Cultureel | Locatie");
+                command.Parameters.AddWithValue("@eigenaar", "Bob");
+                command.Parameters.AddWithValue("@applicatie", "Kunstnet");
                 command.ExecuteNonQuery();
                 //connection.
                 connection.Close();
@@ -33,14 +38,12 @@ namespace Database_Plattegrond.DatabaseService
             {
                 connection.Open();
 
-                command.CommandText = "select * from TestTable"; //where ID=@ID";
-                command.Parameters.AddWithValue("@ID", "12445");
+                command.CommandText = "select * from dataset"; //where ID=@ID";
                 SqlDataReader reader = command.ExecuteReader();
                 List<string> strings = new List<string>();
                 while (reader.Read())
                 {
                     string Id = reader["ID"].ToString();
-                    int Int = (int)reader["Int"];
                     strings.Add(Id);
                 }
                 connection.Close();

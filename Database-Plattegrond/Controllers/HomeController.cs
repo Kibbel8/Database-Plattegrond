@@ -13,8 +13,8 @@ namespace Database_Plattegrond.Controllers
         public ActionResult Index()
         {
             TestDatabaseService a = new TestDatabaseService();
-            a.DoInsertQuery();
-            a.DoGetQuery();
+            //a.DoInsertQuery();
+            //a.DoGetQuery();
             return View();
         }
 
