@@ -195,7 +195,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Datasets\Index.cshtml" />
     <Content Include="Views\Domeinen\Index.cshtml" />
-    <Content Include="Views\Datasets\Detail.cshtml" />
+    <Content Include="Views\Datasets\Details.cshtml" />
     <Content Include="Views\Datasets\DatasetBewerken.cshtml" />
     <Content Include="Views\Domeinen\DomeinenBewerken.cshtml" />
     <Content Include="Views\Datasets\Toevoegen.cshtml" />

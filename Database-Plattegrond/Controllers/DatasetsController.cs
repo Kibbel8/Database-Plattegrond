@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Database_Plattegrond.Models;
 using Database_Plattegrond.DatabaseService;
+using System.Web.Routing;
 
 namespace Database_Plattegrond.Controllers
 {
@@ -14,12 +15,9 @@ namespace Database_Plattegrond.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Datasets";
+            DatasetsDatabaseService dds = new DatasetsDatabaseService();
+            DatasetsViewModel datasetsViewModel = dds.GetAllDatasets();
 
-            Dataset set1 = new Dataset { Naam = "Kunst", Beschrijving = "Dataset over kunst" };
-            Dataset set2 = new Dataset { Naam = "Bomen", Beschrijving = "Dataset over bomen" };
-
-            List<Dataset> datasets = new List<Dataset> { set1, set2 };
-            DatasetsViewModel datasetsViewModel = new DatasetsViewModel { Datasets = datasets };
 
             return View(datasetsViewModel);
         }
@@ -43,7 +41,16 @@ namespace Database_Plattegrond.Controllers
 
             return View(dataset);
         }
-        
+        [HttpPost]
+        public ActionResult DatasetBewerken(Dataset model)
+        {
+            ViewBag.Message = "Dataset Bewerken";
+
+            DatasetsDatabaseService dds = new DatasetsDatabaseService();
+            int rowsAffected = dds.UpdateDataset(model);
+            return RedirectToAction("Details", new { id = model.Id });
+        }
+
         public ActionResult Toevoegen()
         {
             ViewBag.Message = "Dataset Pagina toevoegen";
@@ -52,13 +59,17 @@ namespace Database_Plattegrond.Controllers
         }
 
         [HttpPost]
-        public ActionResult DatasetBewerken(Dataset model)
+        public ActionResult Toevoegen(Dataset model)
         {
-            ViewBag.Message = "Dataset Bewerken";
+            ViewBag.Message = "Dataset Pagina toevoegen";
+            model.Id = (int)(new Random().NextDouble() * 1000);
+            model.DatumAangemaakt = DateTime.Now;
 
             DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            int rowsAffected = dds.UpdateDataset(model);
-            return View(model);
+            dds.InsertDataset(model);
+
+            return RedirectToAction("Details", new { id = model.Id });
         }
+
     }
 }

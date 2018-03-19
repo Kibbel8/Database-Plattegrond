@@ -2,32 +2,10 @@
 @{
     ViewBag.Title = "Domeinen";
 }
-<style>
-    body {
-        background-color: #1476C6;
-        font-family: "Helvetica";
-    }
-
-    tr  {
-        background-color: white;
-    }
-    table {
-        border-collapse: collapse;
-        border: 5px solid #FDDC03;
-        width: 100%;
-    }
-
-    td, th {
-        border: 1px solid black;
-        text-align: left;
-        padding: 8px;
-    }
-</style>
-
 <h2>Domeinen</h2>
 <form action="/action_page.php">
     Zoek <input type="text" name="fname">
-    <input type="submit" value="Zoeks"><br>
+    <input type="submit" value="Zoek" class="btn"><br>
 </form>
 <br>
 <table>
@@ -36,7 +14,7 @@
             <th style="padding:8px 0">Naam</th>
             <th style="min-width:90px; max-width:110px; padding:8px 0">Beschrijving</th>
             <th style="max-width:80px; padding:8px 0">?</th>
-            <th style="max-width:100px; padding:8px 0">?</th>
+            <th style="max-width:100px; padding:8px 0">Bewerken</th>
         </tr>
     </thead>
     <tbody>
@@ -53,6 +31,6 @@
     </tbody>
     </table>
     <br>
-    <button type="button">Voeg domein toe</button>
-    <button type="button">Bekijk</button>
+    <button type="button" class="btn">Voeg domein toe</button>
+    <button type="button" class="btn">Bekijk</button>
 

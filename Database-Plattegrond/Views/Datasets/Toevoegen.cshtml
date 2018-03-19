@@ -1,44 +1,23 @@
-﻿@{
+﻿@model Database_Plattegrond.Models.Dataset
+@{
     ViewBag.Title = "Dataset pagina toevoegen";
 }
 
-<style>
-    body {
-        background-color: #1476C6;
-        font-family: "Helvetica";
-    }
-
-    tr {
-        background-color: white;
-    }
-
-    table {
-        border-collapse: collapse;
-        border: 5px solid #FDDC03;
-        width: 100%;
-    }
-
-    td, th {
-        border: 1px solid black;
-        text-align: left;
-        padding: 8px;
-    }
-</style>
-
 <h2>@ViewBag.Message</h2>
 
-<form action="/dataset/detail" method="post">
+@using (Html.BeginForm())
+{
     <p>
         @Html.Label("Locatie")<br />
         Domein > Kunst > ...
     </p>
     <p>
         @Html.Label("Naam")
-        @Html.TextBox("Naam", null, new { @class = "form-control " })
+        @Html.TextBoxFor(m => m.Naam, new { @class = "form-control " })
     </p>
     <p>
         @Html.Label("Beschrijving")
-        @Html.TextArea("Beschrijving", null, new { @class = "form-control" })
+        @Html.TextAreaFor(m => m.Beschrijving, new { @class = "form-control" })
     </p>
     <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
-</form>
+}
