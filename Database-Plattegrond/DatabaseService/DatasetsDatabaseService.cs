@@ -13,7 +13,8 @@ namespace Database_Plattegrond.DatabaseService
 
         public Dataset GetDatasetFromId(int id)
         {
-            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            //SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["jeroen_vd_kolk.datacatalogus"].ToString());
             connection.Open();
 
             SqlCommand command = new SqlCommand("", connection)
