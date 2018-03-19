@@ -7,8 +7,8 @@ namespace Database_Plattegrond.Models
 {
     public class Domein
     {
-        public string Id;
-        public string Naam;
-        public List<Domein> SubdomeinVan;
+        public string Id { get; set; }
+        public string Naam { get; set; }
+        public List<Domein> SubdomeinVan { get; set; }
     }
 }

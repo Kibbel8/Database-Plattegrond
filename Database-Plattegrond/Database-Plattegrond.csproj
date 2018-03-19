@@ -142,9 +142,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\DatasetController.cs" />
+    <Compile Include="Controllers\DatasetsController.cs" />
     <Compile Include="Controllers\DomeinenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DatabaseService\DatasetsDatabaseService.cs" />
     <Compile Include="DatabaseService\TestDatabaseService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -194,8 +195,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Dataset\Index.cshtml" />
     <Content Include="Views\Domeinen\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Dataset\Detail.cshtml" />
     <Content Include="Views\Dataset\DatasetBewerken.cshtml" />
+=======
+    <Content Include="Views\Datasets\Details.cshtml" />
+    <Content Include="Views\Datasets\DatasetBewerken.cshtml" />
+>>>>>>> 974b949f019bc28a74b4247cd8bf8dfc250cedc4
     <Content Include="Views\Domeinen\DomeinenBewerken.cshtml" />
     <Content Include="Views\Dataset\Toevoegen.cshtml" />
     <Content Include="Views\Domeinen\Toevoegen.cshtml" />
