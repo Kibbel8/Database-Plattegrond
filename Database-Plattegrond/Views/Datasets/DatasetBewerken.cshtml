@@ -5,14 +5,11 @@
 <h2>Dataset Bewerken</h2>
 
 
-<<<<<<< HEAD:Database-Plattegrond/Views/Dataset/DatasetBewerken.cshtml
-<form action="/dataset/detail" method="post">
-=======
+
 @using (Html.BeginForm("DatasetBewerken", "Datasets", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.DatumAangemaakt)
->>>>>>> 974b949f019bc28a74b4247cd8bf8dfc250cedc4:Database-Plattegrond/Views/Datasets/DatasetBewerken.cshtml
     <p>
         @Html.LabelFor(m => m.Naam)
         @Html.TextBoxFor(m => m.Naam, new { @class = "form-control " })

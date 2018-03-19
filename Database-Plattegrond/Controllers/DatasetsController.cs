@@ -24,11 +24,7 @@ namespace Database_Plattegrond.Controllers
             return View(datasetsViewModel);
         }
 
-<<<<<<< HEAD:Database-Plattegrond/Controllers/DatasetController.cs
-        public ActionResult Detail()
-=======
         public ActionResult Details(int? id = -1)
->>>>>>> 974b949f019bc28a74b4247cd8bf8dfc250cedc4:Database-Plattegrond/Controllers/DatasetsController.cs
         {
             ViewBag.Message = "Dataset pagina";
 
@@ -47,8 +43,7 @@ namespace Database_Plattegrond.Controllers
 
             return View(dataset);
         }
-
-<<<<<<< HEAD:Database-Plattegrond/Controllers/DatasetController.cs
+        
         public ActionResult Toevoegen()
         {
             ViewBag.Message = "Dataset Pagina toevoegen";
@@ -56,7 +51,6 @@ namespace Database_Plattegrond.Controllers
             return View();
         }
 
-=======
         [HttpPost]
         public ActionResult DatasetBewerken(Dataset model)
         {
@@ -66,6 +60,5 @@ namespace Database_Plattegrond.Controllers
             int rowsAffected = dds.UpdateDataset(model);
             return View(model);
         }
->>>>>>> 974b949f019bc28a74b4247cd8bf8dfc250cedc4:Database-Plattegrond/Controllers/DatasetsController.cs
     }
 }
