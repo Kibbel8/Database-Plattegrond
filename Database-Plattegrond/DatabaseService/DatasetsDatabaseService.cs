@@ -143,9 +143,8 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "INSERT INTO dataset (ID, naam, beschrijving, datum_aangemaakt, link_open_data, zoektermen, eigenaar, applicatie) VALUES(@ID, @naam, @beschrijving, @datum_aangemaakt, @link_open_data, @zoektermen, @eigenaar, @applicatie)";
-
-                command.Parameters.AddWithValue("@ID", dataset.Id);
+                command.CommandText = "INSERT INTO dataset (naam, beschrijving, datum_aangemaakt, link_open_data, zoektermen, eigenaar, applicatie) VALUES(@naam, @beschrijving, @datum_aangemaakt, @link_open_data, @zoektermen, @eigenaar, @applicatie)";
+                
 
                 if (dataset.Naam == null)
                     command.Parameters.AddWithValue("@naam", DBNull.Value);
@@ -180,15 +179,38 @@ namespace Database_Plattegrond.DatabaseService
                     command.Parameters.AddWithValue("@applicatie", dataset.Applicatie);
 
                 int rowsAffected = command.ExecuteNonQuery();
+
+                //SELECTS de laatste identity die toegevoegd is, dus hiermee krijg je de id van de toegevoegde dataset
+                command.CommandText = "SELECT SCOPE_IDENTITY();";
+
+                SqlDataReader reader = command.ExecuteReader();
+                if(reader.Read())
+                {
+                    dataset.Id = reader.GetInt32(0);
+                } else
+                {
+                    dataset.Id = -1;
+                }
+
                 connection.Close();
 
-                return rowsAffected;
+                return dataset.Id;
             }
         }
 
         public int DeleteDataset(Dataset dataset)
         {
             throw new NotImplementedException();
+        }
+
+        public int InsertDatasetDomein(int datasetID, string domeinNaam)
+        {
+            return 0;
+        }
+
+        public int DeleteDatasetDomein(int datasetID, string domeinNaam)
+        {
+            return 0;
         }
     }
 }

@@ -62,11 +62,10 @@ namespace Database_Plattegrond.Controllers
         public ActionResult Toevoegen(Dataset model)
         {
             ViewBag.Message = "Dataset Pagina toevoegen";
-            model.Id = (int)(new Random().NextDouble() * 1000);
             model.DatumAangemaakt = DateTime.Now;
 
             DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            dds.InsertDataset(model);
+            model.Id = dds.InsertDataset(model);
 
             return RedirectToAction("Details", new { id = model.Id });
         }

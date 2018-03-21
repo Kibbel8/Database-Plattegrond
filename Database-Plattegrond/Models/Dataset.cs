@@ -15,5 +15,6 @@ namespace Database_Plattegrond.Models
         public string Zoektermen { get; set; }
         public string Eigenaar { get; set; }
         public string Applicatie { get; set; }
+        public List<Domein> Domeinen { get; set; }
     }
 }

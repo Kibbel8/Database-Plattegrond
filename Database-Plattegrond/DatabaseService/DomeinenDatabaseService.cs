@@ -43,7 +43,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "SELECT Naam from Domein WHERE Sub_domein_van IS @domein";
+                command.CommandText = "SELECT Naam from Domein WHERE Is_Subdomein_van IS @domein";
 
                 command.Parameters.AddWithValue("@domein", domein.Naam);
 
