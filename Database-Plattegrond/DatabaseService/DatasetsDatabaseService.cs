@@ -143,7 +143,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "INSERT INTO dataset VALUES(@ID, @naam, @beschrijving, @datum_aangemaakt, @link_open_data, @zoektermen, @eigenaar, @applicatie)";
+                command.CommandText = "INSERT INTO dataset (ID, naam, beschrijving, datum_aangemaakt, link_open_data, zoektermen, eigenaar, applicatie) VALUES(@ID, @naam, @beschrijving, @datum_aangemaakt, @link_open_data, @zoektermen, @eigenaar, @applicatie)";
 
                 command.Parameters.AddWithValue("@ID", dataset.Id);
 
@@ -184,6 +184,11 @@ namespace Database_Plattegrond.DatabaseService
 
                 return rowsAffected;
             }
+        }
+
+        public int DeleteDataset(Dataset dataset)
+        {
+            throw new NotImplementedException();
         }
     }
 }

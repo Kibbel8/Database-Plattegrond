@@ -9,6 +9,6 @@ namespace Database_Plattegrond.Models
     {
         public string Id { get; set; }
         public string Naam { get; set; }
-        public List<Domein> SubdomeinVan { get; set; }
+        public string SubdomeinVan { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Database_Plattegrond.Controllers
 
         public ActionResult DomeinenBewerken()
         {
-            Domein a = new Domein { Id = "HAHA", Naam = "Kunst", SubdomeinVan = new List<Domein>() };
+            Domein a = new Domein { Id = "HAHA", Naam = "Kunst", SubdomeinVan = "" };
             return View(a);
         }
 

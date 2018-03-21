@@ -146,6 +146,7 @@
     <Compile Include="Controllers\DomeinenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DatabaseService\DatasetsDatabaseService.cs" />
+    <Compile Include="DatabaseService\DomeinenDatabaseService.cs" />
     <Compile Include="DatabaseService\TestDatabaseService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
