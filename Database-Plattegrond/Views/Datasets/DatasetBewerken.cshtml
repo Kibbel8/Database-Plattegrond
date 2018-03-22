@@ -3,9 +3,7 @@
     ViewBag.Title = "Dataset Bewerken";
 }
 
-<h2>Dataset Bewerken</h2>
-
-
+<h2>@ViewBag.Message</h2>
 
 @using (Html.BeginForm("DatasetBewerken", "Datasets", FormMethod.Post))
 {
@@ -18,6 +16,14 @@
     <p>
         @Html.LabelFor(m => m.Beschrijving)
         @Html.TextAreaFor(m => m.Beschrijving, new { @class = "form-control" })
+    </p>
+    <p>
+        @Html.LabelFor(m => m.Applicatie, "Naam Applicatie")
+        @Html.TextBoxFor(m => m.Applicatie, new { @class = "form-control" })
+    </p>
+    <p>
+        @Html.LabelFor(m => m.LinkOpenData, "Link Opendata")
+        @Html.TextBoxFor(m => m.LinkOpenData, new { @class = "form-control" })
     </p>
     <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
 }
