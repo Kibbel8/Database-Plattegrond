@@ -19,7 +19,7 @@ namespace Database_Plattegrond.DatabaseService
 
             SqlCommand command = new SqlCommand("", connection)
             {
-                CommandText = "SELECT * FROM dataset WHERE ID=@ID"
+                CommandText = "select d.*, g.Naam, g.ID, g.Email FROM Dataset d JOIN Gebruiker g on d.Eigenaar = g.ID WHERE ID=@ID"
             };
             command.Parameters.AddWithValue("@ID", id);
 
@@ -36,7 +36,7 @@ namespace Database_Plattegrond.DatabaseService
                     DatumAangemaakt = (DateTime)reader["datum_aangemaakt"],
                     LinkOpenData = reader["link_open_data"].ToString(),
                     Zoektermen = reader["zoektermen"].ToString(),
-                    Eigenaar = reader["eigenaar"].ToString(),
+                    Eigenaar = new Gebruiker { ID = (int)reader["g.ID"], Naam = reader["g.Naam"].ToString(), Email = reader["g.Email"].ToString() },
                     Applicatie = reader["applicatie"].ToString()
                 };
 
@@ -88,6 +88,38 @@ namespace Database_Plattegrond.DatabaseService
             return datasetVM;
         }
 
+        public List<Dataset> GetDatasetsVoorDomein(string domeinNaam)
+        {
+            List<Dataset> datasets = new List<Dataset>();
+
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+                connection.Open();
+                command.CommandText = "select ID, Naam, Beschrijving, Applicatie FROM Dataset d JOIN Dataset_Domein dd on d.ID = dd.Dataset_ID where dd.Domein_Naam = @DomeinNaam;";
+
+                command.Parameters.AddWithValue("@DomeinNaam", domeinNaam);
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Dataset dataset = new Dataset
+                        {
+                            Id = reader.GetInt32(0),
+                            Naam = reader.GetString(1),
+                            Beschrijving = reader.GetString(2),
+                            Applicatie = reader.GetString(3)
+                        };
+                        datasets.Add(dataset);
+                    }
+                }
+
+                connection.Close();
+                return datasets;
+            }
+        }
 
         public int UpdateDataset(Dataset dataset)
         {
@@ -144,7 +176,7 @@ namespace Database_Plattegrond.DatabaseService
             {
                 connection.Open();
                 command.CommandText = "INSERT INTO dataset (naam, beschrijving, datum_aangemaakt, link_open_data, zoektermen, eigenaar, applicatie) VALUES(@naam, @beschrijving, @datum_aangemaakt, @link_open_data, @zoektermen, @eigenaar, @applicatie)";
-                
+
 
                 if (dataset.Naam == null)
                     command.Parameters.AddWithValue("@naam", DBNull.Value);
@@ -184,10 +216,11 @@ namespace Database_Plattegrond.DatabaseService
                 command.CommandText = "SELECT SCOPE_IDENTITY();";
 
                 SqlDataReader reader = command.ExecuteReader();
-                if(reader.Read())
+                if (reader.Read())
                 {
                     dataset.Id = reader.GetInt32(0);
-                } else
+                }
+                else
                 {
                     dataset.Id = -1;
                 }
@@ -198,19 +231,47 @@ namespace Database_Plattegrond.DatabaseService
             }
         }
 
-        public int DeleteDataset(Dataset dataset)
+        public int DeleteDataset(int datasetID)
         {
             throw new NotImplementedException();
         }
 
         public int InsertDatasetDomein(int datasetID, string domeinNaam)
         {
-            return 0;
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+                connection.Open();
+                command.CommandText = "INSERT INTO dataset_domein (dataset_id, domein_naam) VALUES (@dataset_id, @domein_naam)";
+
+                command.Parameters.AddWithValue("@dataset_id", datasetID);
+
+                command.Parameters.AddWithValue("@domein_naam", domeinNaam);
+
+                int rowsAffected = command.ExecuteNonQuery();
+                connection.Close();
+
+                return rowsAffected;
+            }
         }
 
         public int DeleteDatasetDomein(int datasetID, string domeinNaam)
         {
-            return 0;
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+                connection.Open();
+                command.CommandText = "DELETE FROM dataset_domein WHERE dataset_id = @dataset_id AND domein_naam = @domein_naam";
+
+                command.Parameters.AddWithValue("@dataset_id", datasetID);
+
+                command.Parameters.AddWithValue("@domein_naam", domeinNaam);
+
+                int rowsAffected = command.ExecuteNonQuery();
+                connection.Close();
+
+                return rowsAffected;
+            }
         }
     }
 }

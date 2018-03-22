@@ -145,13 +145,15 @@
     <Compile Include="Controllers\DatasetsController.cs" />
     <Compile Include="Controllers\DomeinenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DatabaseService\CommentDatabaseService.cs" />
     <Compile Include="DatabaseService\DatasetsDatabaseService.cs" />
     <Compile Include="DatabaseService\DomeinenDatabaseService.cs" />
     <Compile Include="DatabaseService\TestDatabaseService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Beheerder.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\Dataset.cs" />
     <Compile Include="Models\DatasetsViewModel.cs" />
     <Compile Include="Models\Domein.cs" />

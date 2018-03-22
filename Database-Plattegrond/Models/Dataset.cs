@@ -13,7 +13,7 @@ namespace Database_Plattegrond.Models
         public DateTime DatumAangemaakt { get; set; }
         public string LinkOpenData { get; set; }
         public string Zoektermen { get; set; }
-        public string Eigenaar { get; set; }
+        public Gebruiker Eigenaar { get; set; }
         public string Applicatie { get; set; }
         public List<Domein> Domeinen { get; set; }
     }

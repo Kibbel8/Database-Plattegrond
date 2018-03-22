@@ -35,7 +35,7 @@ namespace Database_Plattegrond.DatabaseService
             }
         }
 
-        public List<Domein> GetSubDomeinen(Domein domein)
+        public List<Domein> GetSubDomeinen(string domeinNaam)
         {
             List<Domein> subDomeinen = new List<Domein>();
 
@@ -45,7 +45,7 @@ namespace Database_Plattegrond.DatabaseService
                 connection.Open();
                 command.CommandText = "SELECT Naam from Domein WHERE Is_Subdomein_van IS @domein";
 
-                command.Parameters.AddWithValue("@domein", domein.Naam);
+                command.Parameters.AddWithValue("@domein", domeinNaam);
 
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
@@ -53,7 +53,7 @@ namespace Database_Plattegrond.DatabaseService
                     while (reader.Read())
                     {
                         Domein subDomein = new Domein { Naam = reader.GetString(0) };
-                        subDomeinen.Add(domein);
+                        subDomeinen.Add(subDomein);
                     }
                 }
 
@@ -62,6 +62,32 @@ namespace Database_Plattegrond.DatabaseService
             }
         }
 
+        public List<Domein> GetDomeinenVoorDataset(int datasetID)
+        {
+            List<Domein> domeinen = new List<Domein>();
+
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+                connection.Open();
+                command.CommandText = "select Naam FROM Domein d JOIN Dataset_Domein dd on d.Naam = dd.Domein_Naam where dd.Dataset_ID = @datasetID;";
+                command.Parameters.AddWithValue("@datasetID", datasetID);
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Domein domein = new Domein { Naam = reader.GetString(0) };
+                        domeinen.Add(domein);
+                    }
+                }
+
+                connection.Close();
+                return domeinen;
+            }
+        }
+           
         public int UpdateDomein(Domein domein)
         {
             SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
@@ -108,7 +134,20 @@ namespace Database_Plattegrond.DatabaseService
 
         public int DeleteDomein(Domein domein)
         {
-            throw new NotImplementedException();
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+                connection.Open();
+                command.CommandText = "DELETE FROM domein WHERE Naam = @Naam";
+
+                command.Parameters.AddWithValue("@Naam", domein.Naam);
+                
+
+                int rowsAffected = command.ExecuteNonQuery();
+                connection.Close();
+
+                return rowsAffected;
+            }
         }
     }
 }
