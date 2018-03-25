@@ -69,5 +69,12 @@ namespace Database_Plattegrond.Controllers
 
             return RedirectToAction("Details", new { id = id });
         }
+
+        public ActionResult AanvraagFormulier()
+        {
+            ViewBag.Message = "Aanvraag Formulier";
+
+            return View();
+        }
     }
 }
