@@ -5,7 +5,7 @@
 
 <h2>@ViewBag.Message</h2>
 
-@using (Html.BeginForm("DatasetToevoegen", "Datasets", FormMethod.Post)))
+@using (Html.BeginForm())
 {
     @Html.HiddenFor(m => m.Id)
     @Html.HiddenFor(m => m.DatumAangemaakt)

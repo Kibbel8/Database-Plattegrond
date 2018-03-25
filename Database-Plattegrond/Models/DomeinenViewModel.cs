@@ -5,9 +5,8 @@ using System.Web;
 
 namespace Database_Plattegrond.Models
 {
-    public class Domein
+    public class DomeinenViewModel
     {
-        public string Naam { get; set; }
-        public string SubdomeinVan { get; set; }
+        public List<Domein> Domeinen { get; set; }
     }
 }

@@ -19,15 +19,14 @@ namespace Database_Plattegrond.DatabaseService
 
             SqlCommand command = new SqlCommand("", connection)
             {
-                CommandText = "select d.*, g.Naam, g.ID, g.Email FROM Dataset d JOIN Gebruiker g on d.Eigenaar = g.ID WHERE ID=@ID"
+                CommandText = "select d.*,  g.Naam as EIGENAARNAAM, g.Email as EIGENAAREMAIL FROM Dataset d LEFT JOIN Gebruiker g on d.Eigenaar = g.ID WHERE d.ID=@ID"
             };
             command.Parameters.AddWithValue("@ID", id);
 
             SqlDataReader reader = command.ExecuteReader();
 
-            if (reader.HasRows)
+            if (reader.Read())
             {
-                reader.Read();
                 Dataset result = new Dataset
                 {
                     Id = (int)reader["ID"],
@@ -36,7 +35,7 @@ namespace Database_Plattegrond.DatabaseService
                     DatumAangemaakt = (DateTime)reader["datum_aangemaakt"],
                     LinkOpenData = reader["link_open_data"].ToString(),
                     Zoektermen = reader["zoektermen"].ToString(),
-                    Eigenaar = new Gebruiker { ID = (int)reader["g.ID"], Naam = reader["g.Naam"].ToString(), Email = reader["g.Email"].ToString() },
+                    Eigenaar = new Gebruiker { Naam = reader["EIGENAARNAAM"].ToString(), Email = reader["EIGENAAREMAIL"].ToString() },
                     Applicatie = reader["applicatie"].ToString()
                 };
 
@@ -61,27 +60,22 @@ namespace Database_Plattegrond.DatabaseService
             SqlDataReader reader = command.ExecuteReader();
             DatasetsViewModel datasetVM = new DatasetsViewModel { Datasets = new List<Dataset>() };
 
-            if (reader.HasRows)
+            while (reader.Read())
             {
-                while (reader.Read())
+
+                Dataset result = new Dataset
                 {
+                    Id = (int)reader["ID"],
+                    Naam = reader["naam"].ToString(),
+                    Beschrijving = reader["beschrijving"].ToString(),
+                    DatumAangemaakt = (DateTime)reader["datum_aangemaakt"],
+                    LinkOpenData = reader["link_open_data"].ToString(),
+                    Zoektermen = reader["zoektermen"].ToString(),
+                    Eigenaar = new Gebruiker { Naam = reader["eigenaar"].ToString() },
+                    Applicatie = reader["applicatie"].ToString()
+                };
 
-                    Dataset result = new Dataset
-                    {
-                        Id = (int)reader["ID"],
-                        Naam = reader["naam"].ToString(),
-                        Beschrijving = reader["beschrijving"].ToString(),
-                        DatumAangemaakt = (DateTime)reader["datum_aangemaakt"],
-                        LinkOpenData = reader["link_open_data"].ToString(),
-                        Zoektermen = reader["zoektermen"].ToString(),
-                        Eigenaar = reader["eigenaar"].ToString(),
-                        Applicatie = reader["applicatie"].ToString()
-                    };
-
-                    datasetVM.Datasets.Add(result);
-                }
-                connection.Close();
-                return datasetVM;
+                datasetVM.Datasets.Add(result);
             }
 
             connection.Close();
@@ -101,19 +95,17 @@ namespace Database_Plattegrond.DatabaseService
                 command.Parameters.AddWithValue("@DomeinNaam", domeinNaam);
 
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    Dataset dataset = new Dataset
                     {
-                        Dataset dataset = new Dataset
-                        {
-                            Id = reader.GetInt32(0),
-                            Naam = reader.GetString(1),
-                            Beschrijving = reader.GetString(2),
-                            Applicatie = reader.GetString(3)
-                        };
-                        datasets.Add(dataset);
-                    }
+                        Id = reader.GetInt32(0),
+                        Naam = reader.GetString(1),
+                        Beschrijving = reader.GetString(2),
+                        Applicatie = reader.GetString(3)
+                    };
+                    datasets.Add(dataset);
                 }
 
                 connection.Close();
@@ -213,12 +205,12 @@ namespace Database_Plattegrond.DatabaseService
                 int rowsAffected = command.ExecuteNonQuery();
 
                 //SELECTS de laatste identity die toegevoegd is, dus hiermee krijg je de id van de toegevoegde dataset
-                command.CommandText = "SELECT SCOPE_IDENTITY();";
+                command.CommandText = "SELECT ident_current('dataset');";
 
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
-                    dataset.Id = reader.GetInt32(0);
+                    dataset.Id = Convert.ToInt32((decimal)reader[0]);
                 }
                 else
                 {

@@ -65,9 +65,9 @@ namespace Database_Plattegrond.Controllers
             model.DatumAangemaakt = DateTime.Now;
 
             DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            model.Id = dds.InsertDataset(model);
+            int id = dds.InsertDataset(model);
 
-            return RedirectToAction("Details", new { id = model.Id });
+            return RedirectToAction("Details", new { id = id });
         }
     }
 }

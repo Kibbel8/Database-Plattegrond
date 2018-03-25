@@ -18,16 +18,14 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "SELECT Naam from Domein WHERE Sub_domein_van IS NULL";
+                command.CommandText = "SELECT Naam from Domein WHERE Is_Subdomein_van IS NULL";
 
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        Domein domein = new Domein { Naam = reader.GetString(0) };
-                        domeinen.Add(domein);
-                    }
+                    Domein domein = new Domein { Naam = reader.GetString(0) };
+                    domeinen.Add(domein);
                 }
 
                 connection.Close();
@@ -48,18 +46,46 @@ namespace Database_Plattegrond.DatabaseService
                 command.Parameters.AddWithValue("@domein", domeinNaam);
 
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        Domein subDomein = new Domein { Naam = reader.GetString(0) };
-                        subDomeinen.Add(subDomein);
-                    }
+                    Domein subDomein = new Domein { Naam = reader.GetString(0) };
+                    subDomeinen.Add(subDomein);
                 }
 
                 connection.Close();
                 return subDomeinen;
             }
+        }
+
+        public Domein GetDomeinFromNaam(string naam)
+        {
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            //SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["jeroen_vd_kolk.datacatalogus"].ToString());
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("", connection)
+            {
+                CommandText = "select Naam, Is_Subdomein_van from domein where Naam = @Naam;"
+            };
+            command.Parameters.AddWithValue("@Naam", naam);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+            {
+                Domein domein = new Domein
+                {
+                    Naam = naam,
+                    SubdomeinVan = reader["Is_Subdomein_van"].ToString()
+                    
+                };
+
+                connection.Close();
+                return domein;
+            }
+
+            connection.Close();
+            return new Domein();
         }
 
         public List<Domein> GetDomeinenVoorDataset(int datasetID)
@@ -74,20 +100,18 @@ namespace Database_Plattegrond.DatabaseService
                 command.Parameters.AddWithValue("@datasetID", datasetID);
 
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        Domein domein = new Domein { Naam = reader.GetString(0) };
-                        domeinen.Add(domein);
-                    }
+                    Domein domein = new Domein { Naam = reader.GetString(0) };
+                    domeinen.Add(domein);
                 }
 
                 connection.Close();
                 return domeinen;
             }
         }
-           
+
         public int UpdateDomein(Domein domein)
         {
             SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
@@ -141,7 +165,7 @@ namespace Database_Plattegrond.DatabaseService
                 command.CommandText = "DELETE FROM domein WHERE Naam = @Naam";
 
                 command.Parameters.AddWithValue("@Naam", domein.Naam);
-                
+
 
                 int rowsAffected = command.ExecuteNonQuery();
                 connection.Close();

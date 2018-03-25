@@ -22,19 +22,17 @@ namespace Database_Plattegrond.DatabaseService
                 command.CommandText = "SELECT g.Naam, g.ID, Datum_Geplaatst, Tekst, Status_Comment FROM comment c JOIN Gebruiker g on g.ID = c.Gebruiker WHERE Dataset_ID = @Dataset_ID";
 
                 SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
+
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    Comment comment = new Comment
                     {
-                        Comment comment = new Comment
-                        {
-                            Gebruiker = new Gebruiker { Naam = reader.GetString(0), ID = reader.GetInt32(1) },
-                            DatumGeplaatst = reader.GetDateTime(2),
-                            Tekst = reader.GetString(3),
-                            Status = reader.GetString(4)
-                        };
-                        comments.Add(comment);
-                    }
+                        Gebruiker = new Gebruiker { Naam = reader.GetString(0), ID = reader.GetInt32(1) },
+                        DatumGeplaatst = reader.GetDateTime(2),
+                        Tekst = reader.GetString(3),
+                        Status = reader.GetString(4)
+                    };
+                    comments.Add(comment);
                 }
 
                 connection.Close();
@@ -70,7 +68,7 @@ namespace Database_Plattegrond.DatabaseService
             {
                 connection.Open();
                 command.CommandText = "UPDATE comment SET Tekst = @Tekst, Status_Comment = @Status_Comment WHERE Gebruiker = @Gebruiker AND Datum_Geplaatst = @Datum_Geplaatst;";
-                
+
                 command.Parameters.AddWithValue("@Gebruiker", comment.Gebruiker.ID);
                 command.Parameters.AddWithValue("@Datum_Geplaatst", comment.DatumGeplaatst);
                 command.Parameters.AddWithValue("@Tekst", comment.Tekst ?? "");

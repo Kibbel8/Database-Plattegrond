@@ -1,4 +1,5 @@
-﻿using Database_Plattegrond.Models;
+﻿using Database_Plattegrond.DatabaseService;
+using Database_Plattegrond.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,26 @@ namespace Database_Plattegrond.Controllers
         {
             ViewBag.Message = "Domeinen";
 
-            return View();
+            DomeinenDatabaseService DDS = new DomeinenDatabaseService();
+            DomeinenViewModel DVM = new DomeinenViewModel { Domeinen = DDS.GetHoofdDomeinen() };
+
+            return View(DVM);
         }
 
 
-        public ActionResult DomeinenBewerken()
+        public ActionResult DomeinenBewerken(string naam)
         {
-            Domein a = new Domein { Id = "HAHA", Naam = "Kunst", SubdomeinVan = "" };
-            return View(a);
+            DomeinenDatabaseService DDS = new DomeinenDatabaseService();
+            Domein domein = DDS.GetDomeinFromNaam(naam);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DomeinenBewerken(Domein domein)
+        {
+            DomeinenDatabaseService DDS = new DomeinenDatabaseService();
+            DDS.UpdateDomein(domein);
+            return View(domein);
         }
 
         public ActionResult Toevoegen()
@@ -29,6 +42,15 @@ namespace Database_Plattegrond.Controllers
             ViewBag.Message = "Domein toevoegen";
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Toevoegen(Domein domein)
+        {
+            DomeinenDatabaseService DDS = new DomeinenDatabaseService();
+            DDS.InsertDomein(domein);
+
+            return RedirectToAction("DomeinenBewerken", new { naam = domein.Naam});
         }
     }
 }
