@@ -74,7 +74,7 @@ namespace Database_Plattegrond.DatabaseService
                         DatumAangemaakt = (DateTime)reader["datum_aangemaakt"],
                         LinkOpenData = reader["link_open_data"].ToString(),
                         Zoektermen = reader["zoektermen"].ToString(),
-                        Eigenaar = reader["eigenaar"].ToString(),
+                        //Eigenaar = reader["eigenaar"].ToString(),
                         Applicatie = reader["applicatie"].ToString()
                     };
 
