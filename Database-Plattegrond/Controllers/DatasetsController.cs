@@ -30,6 +30,7 @@ namespace Database_Plattegrond.Controllers
             Dataset dataset = DDS.GetDatasetFromId(id.Value);
 
             CommentDatabaseService CDS = new CommentDatabaseService();
+            //TODO Sorteer comments op logische wijze
             List<Comment> comments = CDS.GetCommentsVoorDataset(id.Value);
 
             DatasetDetail datasetDetail = new DatasetDetail { Dataset = dataset, Comments = comments };
