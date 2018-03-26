@@ -153,6 +153,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\DatasetDetail.cs" />
     <Compile Include="Models\DomeinenViewModel.cs" />
     <Compile Include="Models\Gebruiker.cs" />
     <Compile Include="Models\Dataset.cs" />

@@ -1,25 +1,25 @@
-﻿@model Database_Plattegrond.Models.Dataset
+﻿@model Database_Plattegrond.Models.DatasetDetail
 @{
     ViewBag.Title = "Dataset pagina";
 }
 
 <br />
-<a href="/datasets/datasetbewerken/?id=@Model.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
-<a href="/datasets/datasetbewerken/?id=@Model.Id" class="btn btn-default" aria-label="Left Align">Aanvraagformulier</a>
+<a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
+<a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvraagformulier</a>
 
 
-<h2>@Model.Naam</h2>
+<h2>@Model.Dataset.Naam</h2>
 
 <div style=" margin-right: 100px">
     <h4>Beschrijving</h4>
-    <p>@Model.Beschrijving</p>
+    <p>@Model.Dataset.Beschrijving</p>
 </div>
 
 <h4>Links</h4>
 
 <p>
-    Applicatie: @Model.Beschrijving<br />
-    Datum aangemaakt: @Model.DatumAangemaakt<br />
+    Applicatie: @Model.Dataset.Beschrijving<br />
+    Datum aangemaakt: @Model.Dataset.DatumAangemaakt<br />
 </p>
 
 <hr />
@@ -37,25 +37,24 @@
 
 <hr />
 
+@using (Html.BeginForm("SubmitComment", "Datasets"))
+{
+    @Html.HiddenFor(m => m.Dataset.Id)
+    <h4>Comment</h4>
+    <p>
+        @Html.TextAreaFor(m => m.NewCommentText, new { @class = "form-control", @placeholder = "Plaats een opmerking" })
+    </p>
+    <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Verzenden">
 
-<h4>Comment</h4>
-<p>
-    @Html.TextArea("Comment", "Plaats een opmerking", new { @class = "form-control" })
-</p>
-<a href="/Home/Dataset" class="btn btn-default" aria-label="Left Align">Verzend</a>
-
-
+}
 <hr />
 
-
-<p>
-    <strong>Naam:</strong>    Henk de Vries<br />
-    <strong>Datum:</strong>   07/03/2018 15:01 CET<br />
-    <strong>Opmerking:</strong> Wat een goed beschreven dataset... Helemaal top.......<br />
-</p>
-<br />
-<p>
-    <strong>Naam:</strong>    Lisa Kunst<br />
-    <strong>Datum:</strong>   31/02/2018 9:48 CET<br />
-    <strong>Opmerking:</strong> Hey uhhhhhhhh ik ben niet de beheerder hiervan???? <br />
-</p>
+@foreach (Database_Plattegrond.Models.Comment comment in Model.Comments)
+{
+    <p>
+        <strong>Naam:</strong>    @comment.Gebruiker.Naam<br />
+        <strong>Datum:</strong>   @comment.DatumGeplaatst<br />
+        <strong>Opmerking:</strong> @comment.Tekst<br />
+    </p>
+    <br />
+}

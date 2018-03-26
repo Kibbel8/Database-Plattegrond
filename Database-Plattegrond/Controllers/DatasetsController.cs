@@ -26,10 +26,33 @@ namespace Database_Plattegrond.Controllers
         {
             ViewBag.Message = "Dataset pagina";
 
-            DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            Dataset dataset = dds.GetDatasetFromId(id.Value);
+            DatasetsDatabaseService DDS = new DatasetsDatabaseService();
+            Dataset dataset = DDS.GetDatasetFromId(id.Value);
 
-            return View(dataset);
+            CommentDatabaseService CDS = new CommentDatabaseService();
+            List<Comment> comments = CDS.GetCommentsVoorDataset(id.Value);
+
+            DatasetDetail datasetDetail = new DatasetDetail { Dataset = dataset, Comments = comments };
+            return View(datasetDetail);
+        }
+
+        [HttpPost]
+        public ActionResult SubmitComment(DatasetDetail datasetDetail)
+        {
+            CommentDatabaseService CDS = new CommentDatabaseService();
+
+            Comment comment = new Comment
+            {
+                DatasetID = datasetDetail.Dataset.Id,
+                DatumGeplaatst = DateTime.Now,
+                Status = "Niet verwerkt",
+                Tekst = datasetDetail.NewCommentText,
+                Gebruiker = new Gebruiker { ID = 0 }
+            };
+
+            CDS.InsertComment(comment);
+
+            return RedirectToAction("Details", new { id = datasetDetail.Dataset.Id });
         }
 
         public ActionResult DatasetBewerken(int? id = -1)

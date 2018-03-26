@@ -21,6 +21,8 @@ namespace Database_Plattegrond.DatabaseService
                 connection.Open();
                 command.CommandText = "SELECT g.Naam, g.ID, Datum_Geplaatst, Tekst, Status_Comment FROM comment c JOIN Gebruiker g on g.ID = c.Gebruiker WHERE Dataset_ID = @Dataset_ID";
 
+                command.Parameters.AddWithValue("@Dataset_ID", datasetID);
+
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
@@ -48,11 +50,11 @@ namespace Database_Plattegrond.DatabaseService
                 connection.Open();
                 command.CommandText = "INSERT INTO comment (Gebruiker, Datum_Geplaatst, Dataset_ID, Tekst, Status_Comment) VALUES (@Gebruiker, @Datum_Geplaatst, @Dataset_ID, @Tekst, @Status_Comment);";
 
-                command.Parameters.AddWithValue("@Gebruiker", comment.Gebruiker.Naam);
+                command.Parameters.AddWithValue("@Gebruiker", comment.Gebruiker.ID);
                 command.Parameters.AddWithValue("@Datum_Geplaatst", DateTime.Now);
                 command.Parameters.AddWithValue("@Dataset_ID", comment.DatasetID);
                 command.Parameters.AddWithValue("@Tekst", comment.Tekst);
-                command.Parameters.AddWithValue("@Tekst", comment.Status);
+                command.Parameters.AddWithValue("@Status_Comment", comment.Status);
 
                 int rowsAffected = command.ExecuteNonQuery();
                 connection.Close();
