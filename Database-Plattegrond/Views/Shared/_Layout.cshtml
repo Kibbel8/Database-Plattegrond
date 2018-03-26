@@ -19,7 +19,7 @@
                 @Html.ActionLink("Gegevens Catalogus", "Index", "Domeinen", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-right" style="margin-top:8px;">
-                @using (Html.BeginForm("Index", "Search", FormMethod.Get))
+                @using (Html.BeginForm("Index", "Zoeken", FormMethod.Get))
                     {
                         <ul class="nav navbar-nav">
                             <li>@Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control " })</li>

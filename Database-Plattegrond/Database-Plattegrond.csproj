@@ -145,10 +145,12 @@
     <Compile Include="Controllers\DatasetsController.cs" />
     <Compile Include="Controllers\DomeinenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ZoekenController.cs" />
     <Compile Include="DatabaseService\CommentDatabaseService.cs" />
     <Compile Include="DatabaseService\DatasetsDatabaseService.cs" />
     <Compile Include="DatabaseService\DomeinenDatabaseService.cs" />
     <Compile Include="DatabaseService\TestDatabaseService.cs" />
+    <Compile Include="DatabaseService\ZoekenDatabaseService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -159,6 +161,7 @@
     <Compile Include="Models\Dataset.cs" />
     <Compile Include="Models\DatasetsViewModel.cs" />
     <Compile Include="Models\Domein.cs" />
+    <Compile Include="Models\ZoekViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +209,12 @@
     <Content Include="Views\Datasets\Toevoegen.cshtml" />
     <Content Include="Views\Domeinen\Toevoegen.cshtml" />
     <Content Include="Views\Datasets\AanvraagFormulier.cshtml" />
+    <Content Include="Views\Zoeken\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ZoekenDatabaseService\" />
+    <Folder Include="Views\ZoekViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
