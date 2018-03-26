@@ -17,9 +17,9 @@ namespace Database_Plattegrond.Controllers
             ViewBag.Message = "Zoeken";
 
             ZoekenDatabaseService zds = new ZoekenDatabaseService();
-            zds.GetAllSearchedDatasets(zoekterm);
+            ZoekViewModel zvm = zds.GetAllSearchedDatasets(zoekterm);
 
-            return View(zds);
+            return View(zvm);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Database_Plattegrond.Controllers
         {
             DomeinenDatabaseService DDS = new DomeinenDatabaseService();
             Domein domein = DDS.GetDomeinFromNaam(naam);
-            return View();
+            return View(domein);
         }
 
         [HttpPost]
