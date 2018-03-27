@@ -161,6 +161,7 @@
     <Compile Include="Models\Dataset.cs" />
     <Compile Include="Models\DatasetsViewModel.cs" />
     <Compile Include="Models\Domein.cs" />
+    <Compile Include="Models\Relevant.cs" />
     <Compile Include="Models\ZoekViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
