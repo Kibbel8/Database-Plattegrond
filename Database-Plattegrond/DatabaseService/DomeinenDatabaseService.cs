@@ -10,6 +10,29 @@ namespace Database_Plattegrond.DatabaseService
 {
     public class DomeinenDatabaseService
     {
+        public List<Domein> GetAlleDomeinen()
+        {
+            List<Domein> domeinen = new List<Domein>();
+
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+                connection.Open();
+                command.CommandText = "SELECT Naam from Domein WHERE Naam != 'ongesorteerd'";
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Domein domein = new Domein { Naam = reader.GetString(0) };
+                    domeinen.Add(domein);
+                }
+
+                connection.Close();
+                return domeinen;
+            }
+        }
+
         public List<Domein> GetHoofdDomeinen()
         {
             List<Domein> domeinen = new List<Domein>();
@@ -77,7 +100,7 @@ namespace Database_Plattegrond.DatabaseService
                 {
                     Naam = naam,
                     SubdomeinVan = reader["Is_Subdomein_van"].ToString()
-                    
+
                 };
 
                 connection.Close();

@@ -16,5 +16,6 @@ namespace Database_Plattegrond.Models
         public Gebruiker Eigenaar { get; set; }
         public string Applicatie { get; set; }
         public List<Domein> Domeinen { get; set; }
+        public string TypeDataset { get; set; }
     }
 }

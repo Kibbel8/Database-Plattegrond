@@ -9,5 +9,6 @@ namespace Database_Plattegrond.Models
     {
         public string Naam { get; set; }
         public string SubdomeinVan { get; set; }
+        public bool Selected { get; set; }
     }
 }

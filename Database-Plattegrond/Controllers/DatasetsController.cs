@@ -63,16 +63,38 @@ namespace Database_Plattegrond.Controllers
             DatasetsDatabaseService dds = new DatasetsDatabaseService();
             Dataset dataset = dds.GetDatasetFromId(id.Value);
 
-            return View(dataset);
+            DomeinenDatabaseService domeinDatabaseService = new DomeinenDatabaseService();
+            List<Domein> domeinen = domeinDatabaseService.GetAlleDomeinen();
+
+            List<Domein> domeinenVoorDataset = domeinDatabaseService.GetDomeinenVoorDataset(id.Value);
+
+            foreach (Domein datasetDomein in domeinenVoorDataset)
+            {
+                bool contains = domeinenVoorDataset.Any(domein => domein.Naam == datasetDomein.Naam);
+                if(contains)
+                {
+                 int location = domeinen.FindIndex(domein => domein.Naam == datasetDomein.Naam);
+                    domeinen[location].Selected = true;
+                }
+            }
+
+            DatasetBewerken datasetBewerken = new DatasetBewerken
+            {
+                Dataset = dataset,
+                TypeDatasets = new List<SelectListItem> { { new SelectListItem { Text = "Test 1", Value = "Test 1" } }, { new SelectListItem { Text = "Test 2", Value = "Test 2" } } },
+                Domeinen = domeinen
+            };
+
+            return View(datasetBewerken);
         }
         [HttpPost]
-        public ActionResult DatasetBewerken(Dataset model)
+        public ActionResult DatasetBewerken(DatasetBewerken model)
         {
             ViewBag.Message = "Dataset Bewerken";
 
             DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            int rowsAffected = dds.UpdateDataset(model);
-            return RedirectToAction("Details", new { id = model.Id });
+            int rowsAffected = dds.UpdateDataset(model.Dataset);
+            return RedirectToAction("Details", new { id = model.Dataset.Id });
         }
 
         public ActionResult Toevoegen()
