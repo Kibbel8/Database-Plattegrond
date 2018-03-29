@@ -162,6 +162,7 @@
     <Compile Include="Models\Dataset.cs" />
     <Compile Include="Models\DatasetsViewModel.cs" />
     <Compile Include="Models\Domein.cs" />
+    <Compile Include="Models\Relevant.cs" />
     <Compile Include="Models\ZoekViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -172,6 +173,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\bloem.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">

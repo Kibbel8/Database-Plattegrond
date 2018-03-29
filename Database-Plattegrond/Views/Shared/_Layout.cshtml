@@ -15,21 +15,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
+                </button><img src="~/Images/bloem.png" class="pull-left">
                 @Html.ActionLink("Gegevens Catalogus", "Index", "Domeinen", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-right" style="margin-top:8px;">
                 @using (Html.BeginForm("Index", "Zoeken", FormMethod.Get))
-                    {
-                        <ul class="nav navbar-nav">
-                            <li>@Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control " })</li>
-                            <li><input type="submit" value="Zoeken" class="form-control" /></li>
-                        </ul>
-                    }
+                {
+                <ul class="nav navbar-nav">
+                    <li>@Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Zoeken" })</li>
+                    <li><button type="submit" value="Zoeken" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></li>
+                </ul>
+                }
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Domeinen")</li>
+                    <li>@Html.ActionLink("Domeinen", "Index", "Domeinen")</li>
                 </ul>
             </div>
         </div>
