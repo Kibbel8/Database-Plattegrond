@@ -4,12 +4,26 @@
 }
 
 <br />
+<div align="center">
+    <h2>@Model.Dataset.Naam</h2>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-1">
+            One of three columns
+        </div>
+        <div class="col-md-2">
+            One of three columns
+        </div>
+        <div class="col-md-3">
+            One of three columns
+        </div>
+    </div>
+</div>
+
 <a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
 <a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvraagformulier</a>
-
-
-<h2>@Model.Dataset.Naam</h2>
-
 <div style=" margin-right: 100px">
     <h4>Beschrijving</h4>
     <p>@Model.Dataset.Beschrijving</p>
@@ -36,17 +50,19 @@
 <hr />
 
 <h4>Gerelateerde Datasets</h4>
-<ul>
-    <li><a>link1</a></li>
-    <li><a>link2</a></li>
-    <li><a>link3</a></li>
+<ul class="list-group">
+    @foreach (Database_Plattegrond.Models.Relevant link in Model.Links)
+    {
+        <li class="list-group-item"><a href="@link.Link">@link.Naam</a></li>
+    }
 </ul>
+
 <hr />
 
+<h4>Reageer</h4>
 @using (Html.BeginForm("SubmitComment", "Datasets"))
 {
     @Html.HiddenFor(m => m.Dataset.Id)
-    <h4>Reageer</h4>
     <p>
         @Html.TextAreaFor(m => m.NewCommentText, new { @class = "form-control", @placeholder = "Plaats een opmerking" })
     </p>

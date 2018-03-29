@@ -9,6 +9,7 @@ namespace Database_Plattegrond.Models
     {
         public Dataset Dataset { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<Relevant> Links { get; set; }
         public string NewCommentText { get; set; }
     }
 }

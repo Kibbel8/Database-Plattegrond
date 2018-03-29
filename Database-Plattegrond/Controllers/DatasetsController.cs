@@ -33,7 +33,10 @@ namespace Database_Plattegrond.Controllers
             //TODO Sorteer comments op logische wijze
             List<Comment> comments = CDS.GetCommentsVoorDataset(id.Value);
 
-            DatasetDetail datasetDetail = new DatasetDetail { Dataset = dataset, Comments = comments };
+            RelevantDatabaseService RDS = new RelevantDatabaseService();
+            List<Relevant> links = RDS.GetRelevanteLinksVoorDataset(id.Value);
+
+            DatasetDetail datasetDetail = new DatasetDetail { Dataset = dataset, Comments = comments, Links = links };
             return View(datasetDetail);
         }
 
