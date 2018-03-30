@@ -1,32 +1,30 @@
-﻿
+﻿@model Database_Plattegrond.Models.Aanvragen
 @{
     ViewBag.Title = "Aanvraag Formulier";
 }
 
-<h2>@ViewBag.Message</h2>
-
-<h4>Verwerkingsoveenkomst sluiten</h4>
-<br />
-<div style="width:500px; word-wrap: break-word"><p>
-    <h4>Aanvraag voor dataset:</h4>
-    <strong>Naam:</strong> Kunst<br />
-    <strong>Beschrijving:</strong> Dataset met alle kunstvoorwerpen in zoetermeer
-</p></div>
-<br />
-<div style="position: absolute; top: 163px; right:40%;"><p>
-    <h4>Wordt verstuurd naar:</h4>
-    <strong>Naam:</strong> Lisa Kunst<br />
-    <strong>E-mail:</strong> <a href="mailto:L.Kunst@Zoetermeer.nl">L.Kunst@Zoetermeer.nl</a><br />
-    <strong>Functie:</strong> Kunstig<br />
-    <strong>Afdeling:</strong> Kunst & Cultuur<br />
-    <strong><abbr title="Telefoon Nummer">Tel:</abbr></strong> +31798568426
-</p></div>
-
-
-
-<div><p>
-    @Html.Label("Verwerkingsdoeleind")
-    @Html.TextArea("Verwerkingsdoeleind", "", new { @class = "form-control" })
-</p></div>
-
-<input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Versturen">
+<h2>Dataset opvragen</h2>
+<div class="container">
+    <div class="row">
+        <div class=" col-md-6">
+            <h4>@Model.Naam</h4>
+            <strong>Beschrijving:</strong> @Model.Beschrijving
+        </div>
+        <div class=" col-md-6">
+            <h4>Wordt verstuurd naar:</h4>
+            <strong>Naam:</strong> @Model.Eigenaar.Naam<br />
+            <strong>E-mail:</strong> <a href="mailto:@Model.Eigenaar.Email">@Model.Eigenaar.Email</a><br />
+            <strong><abbr title="Telefoon Nummer">Tel:</abbr></strong> +31790000000
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.Label("Verwerkingsdoeleind")
+            @Html.TextArea("Verwerkingsdoeleind", "", new { @class = "form-control" })
+            <br />
+            @Html.Label("Nodig vanaf")
+            @Html.TextBox("Nodig vanaf", "Datum", new { @class = "form-control" })
+            <input class="form-control btn btn-block" id="submitDataset" name="submitDataset" type="submit" value="Versturen">
+        </div>
+    </div>
+</div>

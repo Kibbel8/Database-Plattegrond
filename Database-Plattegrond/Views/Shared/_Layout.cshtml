@@ -15,8 +15,9 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button><img src="~/Images/bloem.png" class="pull-left">
-                @Html.ActionLink("Gegevens Catalogus", "Index", "Domeinen", new { area = "", Name="zoekterm" }, new { @class = "navbar-brand"})
+                </button>
+                <img src="~/Images/bloem.png" class="pull-left">
+                @Html.ActionLink("Gegevens Catalogus", "Index", "Domeinen", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-right" style="margin-top:8px;">
                 @using (Html.BeginForm("Index", "Zoeken", FormMethod.Get))
