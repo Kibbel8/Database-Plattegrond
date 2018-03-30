@@ -12,12 +12,23 @@ namespace Database_Plattegrond.Controllers
     public class DatasetsController : Controller
     {
         // GET: Dataset
-        public ActionResult Index()
+        public ActionResult Index(string domein = "")
         {
             ViewBag.Message = "Datasets";
-            DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            DatasetsViewModel datasetsViewModel = dds.GetAllDatasets();
+            DatasetsViewModel datasetsViewModel = new DatasetsViewModel()
+            {
+                Domein = domein
+            };
 
+            DatasetsDatabaseService dds = new DatasetsDatabaseService();
+            if (domein == "")
+            {
+                datasetsViewModel.Datasets = dds.GetAllDatasets();
+            }
+            else
+            {
+                datasetsViewModel.Datasets = dds.GetDatasetsVoorDomein(domein);
+            }
 
             return View(datasetsViewModel);
         }
@@ -74,9 +85,9 @@ namespace Database_Plattegrond.Controllers
             foreach (Domein datasetDomein in domeinenVoorDataset)
             {
                 bool contains = domeinenVoorDataset.Any(domein => domein.Naam == datasetDomein.Naam);
-                if(contains)
+                if (contains)
                 {
-                 int location = domeinen.FindIndex(domein => domein.Naam == datasetDomein.Naam);
+                    int location = domeinen.FindIndex(domein => domein.Naam == datasetDomein.Naam);
                     domeinen[location].Selected = true;
                 }
             }

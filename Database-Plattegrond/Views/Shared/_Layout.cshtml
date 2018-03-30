@@ -23,7 +23,8 @@
                 @using (Html.BeginForm("Index", "Zoeken", FormMethod.Get))
                 {
                 <ul class="nav navbar-nav">
-                    <li>@Html.TextBox("Search", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Zoeken" })</li>
+                    <li>@Html.TextBox("zoekterm", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Zoeken" })</li>
+
                     <li><button type="submit" value="Zoeken" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></li>
                 </ul>
                 }
@@ -39,7 +40,6 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
 

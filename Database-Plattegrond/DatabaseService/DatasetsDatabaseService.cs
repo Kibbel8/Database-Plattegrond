@@ -47,7 +47,7 @@ namespace Database_Plattegrond.DatabaseService
             return new Dataset();
         }
 
-        public DatasetsViewModel GetAllDatasets()
+        public List<Dataset> GetAllDatasets()
         {
             SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
             connection.Open();
@@ -58,7 +58,7 @@ namespace Database_Plattegrond.DatabaseService
             };
 
             SqlDataReader reader = command.ExecuteReader();
-            DatasetsViewModel datasetVM = new DatasetsViewModel { Datasets = new List<Dataset>() };
+            List<Dataset> datasets = new List<Dataset>();
 
             while (reader.Read())
             {
@@ -75,11 +75,11 @@ namespace Database_Plattegrond.DatabaseService
                     Applicatie = reader["applicatie"].ToString()
                 };
 
-                datasetVM.Datasets.Add(result);
+                datasets.Add(result);
             }
 
             connection.Close();
-            return datasetVM;
+            return datasets;
         }
 
         public List<Dataset> GetDatasetsVoorDomein(string domeinNaam)

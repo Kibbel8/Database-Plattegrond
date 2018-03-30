@@ -57,21 +57,141 @@ textarea {
 .navbar-inverse {
     background-color: #1476C6;
     border-color: #FDDC03;
-    border-width: 0px 0px 5px 0px;
+    border-width: 0 0 5px 0px;
 }
 
-.navbar-inverse .navbar-brand {
-    color: #FFFFFF;
+    .navbar-inverse .navbar-brand {
+        color: #FFFFFF;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #ffffff;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover,
+        .navbar-inverse .navbar-nav > li > a:focus {
+            color: #76bcf7;
+            background-color: transparent;
+        }
+
+.domein {
+    height: 150px;
+    width: 150px;
+    background-color: #1476C6;
+    color: white;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 25px;
+    float: left;
+    margin: 5px;
+    display: block;
 }
 
-.navbar-inverse .navbar-nav > li > a {
-    color: #ffffff;
+    .domein:hover, .domein:focus {
+        background-color: #1064a8;
+        color: white;
+        text-decoration: none;
+        border: none;
+    }
+
+.domein-naam {
+    height: 50px;
+    margin: 0;
+    text-align: center;
+    font-size: large;
+    vertical-align: middle;
+    line-height: 50px;
 }
 
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus {
-    color: #76bcf7;
-    background-color: transparent;
+.domein-new {
+    border: dashed 5px #1476C6;
+    color: black;
+    background-color: white;
+}
+
+    .domein-new:hover, .domein-new:focus {
+        background-color: #e6e8ed;
+        color: black;
+    }
+
+.img-container {
+    height: 75px;
+    text-align: center;
+    font: 0/0 a;
+    margin: 0;
+}
+
+    .img-container:before {
+        content: ' ';
+        display: inline-block;
+        vertical-align: middle; /* vertical alignment of the inline element */
+        height: 100%;
+    }
+
+    .img-container img {
+        display: inline-block;
+        vertical-align: middle; /* vertical alignment of the inline element */
+        font: 16px/1 Arial sans-serif; /* <-- reset the font property */
+    }
+
+.titel {
+    text-align: center;
+    font-size: xx-large;
+}
+
+.dataset-container {
+    color: white;
+    overflow: hidden;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.dataset-bar {
+    background-color: #1476C6;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    border-radius: 25px;
+    margin: 0;
+    color: white;
+}
+
+    .dataset-bar a {
+        color: white;
+        text-decoration: none;
+        background-color: #1064a8;
+        border: none;
+    }
+
+    .dataset-bar:hover, .dataset-bar:focus {
+        background-color: #1064a8;
+    }
+
+
+.dataset-item {
+    height: 50px;
+    margin: 0;
+    text-align: center;
+    font-size: large;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.dataset-panel {
+    background-color: #1461c6;
+    margin: 0 25px 0 25px;
+    border-radius: 0 0 15px 15px;
+    overflow: hidden;
+}
+
+    .dataset-panel header {
+        font-weight: bold;
+        font-size: large;
+        color: #00255e;
+    }
+
+.dataset-panel-item {
+    margin: 10px 0;
 }
 
 hr {

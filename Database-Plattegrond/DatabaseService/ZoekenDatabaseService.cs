@@ -12,34 +12,37 @@ namespace Database_Plattegrond.DatabaseService
     {
         public ZoekViewModel GetAllSearchedDatasets(string zoekterm)
         {
+            List<string> listZoekElements = zoekterm.Split(' ').ToList();
+
             SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
-            connection.Open();
-            //Querry nog schrijven
+            connection.Open();           
             SqlCommand command = new SqlCommand("", connection)
             {
-                CommandText = "SELECT DISTINCT * FROM dataset WHERE Zoektermen LIKE '%@Zoekterm%'"
+                CommandText = "SELECT * FROM dataset WHERE"
             };
-            command.Parameters.AddWithValue("@Zoekterm", zoekterm);
-
+            
+            foreach (string zoek in listZoekElements)
+            {
+                command.CommandText = command.CommandText + " Zoektermen LIKE '%" + zoek + "%' OR Naam LIKE '%" + zoek + "%' OR beschrijving LIKE '%" + zoek + "%'";
+            }
+            
             SqlDataReader reader = command.ExecuteReader();
             ZoekViewModel zoekVM = new ZoekViewModel { ZoekDatasets = new List<Dataset>() };
 
             while (reader.Read())
             {
+
                 Dataset result = new Dataset
                 {
                     Id = (int)reader["ID"],
                     Naam = reader["naam"].ToString(),
                     Beschrijving = reader["beschrijving"].ToString(),
-                    DatumAangemaakt = (DateTime)reader["datum_aangemaakt"],
-                    LinkOpenData = reader["link_open_data"].ToString(),
-                    Zoektermen = reader["zoektermen"].ToString(),
-                    Eigenaar = new Gebruiker { Naam = reader["eigenaar"].ToString() },
-                    Applicatie = reader["applicatie"].ToString()
+                    //Applicatie = reader["applicatie"].ToString()
                 };
 
                 zoekVM.ZoekDatasets.Add(result);
             }
+
 
             connection.Close();
             return zoekVM;
