@@ -36,7 +36,7 @@ namespace Database_Plattegrond.Controllers
             RelevantDatabaseService RDS = new RelevantDatabaseService();
             List<Relevant> links = RDS.GetRelevanteLinksVoorDataset(id.Value);
 
-            DatasetDetail datasetDetail = new DatasetDetail { Dataset = dataset, Comments = comments, Links = links };
+            DatasetDetail datasetDetail = new DatasetDetail { Dataset = dataset, Comments = comments, Links = links};
             return View(datasetDetail);
         }
 
@@ -90,6 +90,7 @@ namespace Database_Plattegrond.Controllers
 
             return View(datasetBewerken);
         }
+
         [HttpPost]
         public ActionResult DatasetBewerken(DatasetBewerken model)
         {
@@ -119,11 +120,21 @@ namespace Database_Plattegrond.Controllers
             return RedirectToAction("Details", new { id = id });
         }
 
-        public ActionResult AanvraagFormulier()
+        public ActionResult AanvraagFormulier(int? id = -1)
         {
             ViewBag.Message = "Aanvraag Formulier";
+            
+            DatasetsDatabaseService dds = new DatasetsDatabaseService();
+            Dataset dataset = dds.GetDatasetFromId(id.Value);
 
-            return View();
+            Aanvragen aanvragen = new Aanvragen
+            {
+                Naam = dataset.Naam,
+                Beschrijving = dataset.Beschrijving,
+                Eigenaar = dataset.Eigenaar
+            };
+
+            return View(aanvragen);
         }
     }
 }
