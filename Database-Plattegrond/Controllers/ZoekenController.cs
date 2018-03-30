@@ -12,7 +12,7 @@ namespace Database_Plattegrond.Controllers
     public class ZoekenController : Controller
     {
         // GET: Zoeken
-        public ActionResult Index(string zoekterm = "")
+        public ActionResult Index(string zoekterm)
         {
             ViewBag.Message = "Zoeken";
 
