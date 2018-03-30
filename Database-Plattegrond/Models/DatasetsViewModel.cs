@@ -8,6 +8,7 @@ namespace Database_Plattegrond.Models
     public class DatasetsViewModel
     {
         public List<Dataset> Datasets { get; set; }
+        public string Domein { get; set; }
 
     }
 }

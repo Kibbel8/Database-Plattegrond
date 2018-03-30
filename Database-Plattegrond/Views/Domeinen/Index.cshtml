@@ -6,12 +6,12 @@
 
 @{ foreach (Database_Plattegrond.Models.Domein Domein in @Model.Domeinen)
     {
-        <a class="domein" style="display:block">
+        <a class="domein" href="/Datasets/?domein=@Domein.Naam">
             <div class="domein-naam">
                 @Domein.Naam
             </div>
             <div class="img-container">
-                <img src="~/Images/bloem.png" />
+                <img src="~/Images/bloem.png" alt="@Domein.Naam"/>
             </div>
         </a>
     }

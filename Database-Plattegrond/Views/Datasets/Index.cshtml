@@ -2,41 +2,42 @@
 @{
     ViewBag.Title = "Datasets";
 }
-<h2>Datasets kunst</h2>
+<h2 class="titel">Datasets kunst</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th style="padding:8px 0">Naam</th>
-            <th style="min-width:90px; max-width:110px; padding:8px 0">Beschrijving</th>
-            <th style="max-width:80px; padding:8px 0">Beheerder</th>
-            <th style="max-width:100px; padding:8px 0">Bewerken</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{ foreach (Database_Plattegrond.Models.Dataset Dataset in @Model.Datasets)
-            {
 
-                <tr>
-                    <td><a href="/Datasets/Details/?id=@Dataset.Id">@Dataset.Naam</a></td>
-                    <td>@Dataset.Beschrijving</td>
-                    <td>@Dataset.Eigenaar.Naam</td>
-                    <td><a href="/Datasets/DatasetBewerken/?id=@Dataset.Id" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-                </tr>
-            }}
-    </tbody>
-</table>
-
-@{ foreach (Database_Plattegrond.Models.Dataset Dataset in @Model.Datasets)
+@{for (int i = 0; i < Model.Datasets.Count; i++)
     {
-        <a class="dataset" style="display:block">
-            <div class="col-xs-1"></div>
-            <div class="dataset-naam col-xs-10">
-                @Dataset.Naam
+        <div class="dataset-container">
+            <div class="dataset-bar">
+                <a href="/Datasets/Details/?id=@Model.Datasets[i].Id">
+                    <div class="dataset-item col-xs-11">
+                        @Model.Datasets[i].Naam
+                    </div>
+                </a>
+                <div class="col-xs-1" aria-label="Left Align">
+                    <span class="btn glyphicon glyphicon-triangle-bottom dataset-item" aria-hidden="true" onclick="javascript:myFunction('#test_@i')"></span>
+                </div>
             </div>
-            <div class="col-xs-1" aria-label="Left Align">
-                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+            <div class="dataset-panel" >
+                <div class="col-xs-12 dataset-panel-item" id="test_@i" hidden>
+                    
+                    @if (Model.Datasets[i].LinkOpenData == null)
+                    {
+                        <a class="btn btn-default" href="" style="float:right">Data aanvragen</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-default" href="@Model.Datasets[i].LinkOpenData" style="float:right">Open data locatie</a>
+                    }
+
+                    <header>Beschrijving:</header>
+
+                    @Model.Datasets[i].Beschrijving
+                </div>
             </div>
-        </a>
+        </div>
     }
 }
+
+<script src="~/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="~/Scripts/Custom/OpenPanel.js" type="text/javascript"></script>
