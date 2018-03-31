@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Drawing;
 using System.Web;
 
 namespace Database_Plattegrond.Models
@@ -10,5 +8,8 @@ namespace Database_Plattegrond.Models
         public string Naam { get; set; }
         public string SubdomeinVan { get; set; }
         public bool Selected { get; set; }
+
+        public Image Image { get; set; }
+        public HttpPostedFileBase PostedFile { get; set; }
     }
 }

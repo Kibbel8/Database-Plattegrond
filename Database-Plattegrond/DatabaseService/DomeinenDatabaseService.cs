@@ -18,7 +18,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "SELECT Naam from Domein WHERE Naam != 'ongesorteerd'";
+                command.CommandText = "SELECT Naam from Domein"; //WHERE Naam != 'ongesorteerd'";
 
                 SqlDataReader reader = command.ExecuteReader();
 

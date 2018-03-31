@@ -4,13 +4,50 @@
 }
 
 
-<h2>Domein Bewerken</h2>
+<h2 class="titel">Domein Bewerken</h2>
 
 
-<form action="/domeinen/index" method="post">
-    <p>
+@using (Html.BeginForm("DomeinenBewerken", "Domeinen", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-xs-3"></div>
+    <div class="col-xs-3">
         @Html.Label("Naam")
-        @Html.TextBox("Naam", Model.Naam, new { @class = "form-control " })
-    </p>
-    <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
-</form>
+        @Html.TextBoxFor(m => m.Naam, new { @class = "form-control " })
+    </div>
+
+    <div class="col-xs-3">
+        <div class="domein-bewerken">
+            <div class="domein-bewerken-child">@Html.Label("Domein icoon: (75x75)")</div>
+            <div class="upload-btn-wrapper">
+                <img id="image-preview" class="domein-bewerken-child" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="your image" width="75" height="75" onclick="openFile();" />
+                <button class="btn btn-info form-control">Icoon uploaden</button>
+                <input type="file" name="PostedFile" for="PostedFile" accept="image/*" onchange="readfile(this);" id="filePicker" />
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="domein-bewerken">
+        <input class="form-control btn btn-success domein-bewerken-child" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
+    </div>
+}
+
+<div class="clearfix"></div>
+
+<script type="text/javascript">
+
+    function readfile(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image-preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function openFile() {
+        document.getElementById("filePicker").click();
+    }
+</script>

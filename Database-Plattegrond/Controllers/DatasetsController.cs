@@ -30,6 +30,9 @@ namespace Database_Plattegrond.Controllers
                 datasetsViewModel.Datasets = dds.GetDatasetsVoorDomein(domein);
             }
 
+            DomeinenDatabaseService domDS = new DomeinenDatabaseService();
+            datasetsViewModel.Domeinen = domDS.GetAlleDomeinen();
+
             return View(datasetsViewModel);
         }
 
