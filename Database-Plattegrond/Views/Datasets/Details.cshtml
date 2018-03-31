@@ -4,79 +4,81 @@
 }
 
 <br />
+
+<div>
+    <p>Domein: ICON</p>
+</div>
+<div>
+    <p>
+        <strong>Applicatie:</strong> @Model.Dataset.Applicatie<br />
+        Aangemaakt op: @Model.Dataset.DatumAangemaakt<br />
+    </p>
+</div>
+
 <div align="center">
     <h2>@Model.Dataset.Naam</h2>
 </div>
-
+<hr />
 <div class="container">
     <div class="row">
-        <div class="col-md-1">
-            One of three columns
+        <div class="col-md-8 col-md-offset-0">
+            <h3>Beschrijving</h3>
+            <p>@Model.Dataset.Beschrijving</p>
+            
         </div>
-        <div class="col-md-2">
-            One of three columns
+        <div class="col-md-4">
+            <h4>Links</h4>
+            <ul class="list-group">
+                @foreach (Database_Plattegrond.Models.Relevant link in Model.Links)
+                {
+                    <li class="list-group-item"><a href="@link.Link">@link.Naam</a></li>
+                }
+            </ul>
+            
+            <h4>Contactgegevens beheerder</h4>
+            <p>
+                <strong>Naam:</strong> @Model.Dataset.Eigenaar.Naam<br />
+                <strong>E-mail:</strong> <a href="@Model.Dataset.Eigenaar.Email">@Model.Dataset.Eigenaar.Email</a><br />
+                <strong><abbr title="Telefoon Nummer">Tel:</abbr></strong> +31790000000
+            </p>
         </div>
-        <div class="col-md-3">
-            One of three columns
+    </div>
+    <div class="row">
+        <div style="color:#b3b3b3; font-size:small;">
+            <p>
+                Aangemaakt op: @Model.Dataset.DatumAangemaakt
+            </p>
+        </div>
+        <a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
+        <a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvraagformulier</a>
+    </div>
+    <div class="row">
+        <div>
+            <hr />
+
+            <h4>Reageer</h4>
+            @using (Html.BeginForm("SubmitComment", "Datasets"))
+            {
+                @Html.HiddenFor(m => m.Dataset.Id)
+                <p>
+                    @Html.TextAreaFor(m => m.NewCommentText, new { @class = "form-control", @placeholder = "Plaats een opmerking" })
+                </p>
+                <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Verzenden">
+
+            }
+
+            <hr />
+
+            @foreach (Database_Plattegrond.Models.Comment comment in Model.Comments)
+            {
+                <p>
+                    <strong>Naam:</strong>    @comment.Gebruiker.Naam<br />
+                    <strong>Datum:</strong>   @comment.DatumGeplaatst<br />
+                    <strong>Opmerking:</strong> @comment.Tekst<br />
+                </p>
+                <br />
+            }
         </div>
     </div>
 </div>
 
-<a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
-<a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvraagformulier</a>
-<div style=" margin-right: 100px">
-    <h4>Beschrijving</h4>
-    <p>@Model.Dataset.Beschrijving</p>
-</div>
-
-<h4>Links</h4>
-
-<p>
-    <strong>Applicatie:</strong> @Model.Dataset.Beschrijving<br />
-    <strong>Datum aangemaakt:</strong> @Model.Dataset.DatumAangemaakt<br />
-</p>
-
-<hr />
-
-<h4>Contactgegevens beheerder</h4>
-<p>
-    <strong>Naam:</strong> Lisa Kunst<br />
-    <strong>E-mail:</strong> <a href="mailto:L.Kunst@Zoetermeer.nl">L.Kunst@Zoetermeer.nl</a><br />
-    <strong>Functie:</strong> Kunstig<br />
-    <strong>Afdeling:</strong> Kunst & Cultuur<br />
-    <strong><abbr title="Telefoon Nummer">Tel:</abbr></strong> +31798568426
-</p>
-
-<hr />
-
-<h4>Gerelateerde Datasets</h4>
-<ul class="list-group">
-    @foreach (Database_Plattegrond.Models.Relevant link in Model.Links)
-    {
-        <li class="list-group-item"><a href="@link.Link">@link.Naam</a></li>
-    }
-</ul>
-
-<hr />
-
-<h4>Reageer</h4>
-@using (Html.BeginForm("SubmitComment", "Datasets"))
-{
-    @Html.HiddenFor(m => m.Dataset.Id)
-    <p>
-        @Html.TextAreaFor(m => m.NewCommentText, new { @class = "form-control", @placeholder = "Plaats een opmerking" })
-    </p>
-    <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Verzenden">
-
-}
-<hr />
-
-@foreach (Database_Plattegrond.Models.Comment comment in Model.Comments)
-{
-    <p>
-        <strong>Naam:</strong>    @comment.Gebruiker.Naam<br />
-        <strong>Datum:</strong>   @comment.DatumGeplaatst<br />
-        <strong>Opmerking:</strong> @comment.Tekst<br />
-    </p>
-    <br />
-}
