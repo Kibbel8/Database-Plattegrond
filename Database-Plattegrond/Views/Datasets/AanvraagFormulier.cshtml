@@ -2,9 +2,14 @@
 @{
     ViewBag.Title = "Aanvraag Formulier";
 }
+<style>
+    h4{
+        text-align:left;
+    }
+</style>
 
-<h2>Dataset opvragen</h2>
 <div class="container">
+    <div class="row"><div class="col-md-12"><h2>Dataset opvragen</h2></div></div>
     <div class="row">
         <div class=" col-md-6">
             <h4>@Model.Naam</h4>
@@ -19,12 +24,24 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            @Html.Label("Verwerkingsdoeleind")
-            @Html.TextArea("Verwerkingsdoeleind", "", new { @class = "form-control" })
-            <br />
-            @Html.Label("Nodig vanaf")
-            @Html.TextBox("Nodig vanaf", "Datum", new { @class = "form-control" })
-            <input class="form-control btn btn-block" id="submitDataset" name="submitDataset" type="submit" value="Versturen">
+            
+            @using (Html.BeginForm("AanvraagSturen", "Datasets"))
+            {
+                @Html.HiddenFor(m => m.DatasetID)
+                @Html.HiddenFor(m => m.Naam)
+                @Html.HiddenFor(m => m.Beschrijving)
+                @Html.HiddenFor(m => m.Eigenaar.Email)
+                @Html.HiddenFor(m => m.Eigenaar.Naam)
+                <p>
+                    @Html.LabelFor(m => m.VerwDoeleind, "Verwerkingsdoeleind")
+                    @Html.TextAreaFor(m => m.VerwDoeleind, new { @class = "form-control" })
+                </p>
+                <p>
+                    @Html.LabelFor( m => m.NodigVanaf, "Nodig Vanaf")
+                    @Html.TextBoxFor(m => m.NodigVanaf, new { @class = "form-control", @placeholder = "Datum of p. direct"})
+                </p>
+                <input class="form-control btn" id="aanvraagSturen" name="aanvraagSturen" type="submit" value="Versturen">
+            }
         </div>
     </div>
 </div>

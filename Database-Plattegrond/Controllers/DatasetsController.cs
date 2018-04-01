@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Database_Plattegrond.Models;
 using Database_Plattegrond.DatabaseService;
 using System.Web.Routing;
+using System.Net.Mail;
+using System.IO;
 
 namespace Database_Plattegrond.Controllers
 {
@@ -143,6 +145,7 @@ namespace Database_Plattegrond.Controllers
 
             Aanvragen aanvragen = new Aanvragen
             {
+                DatasetID = dataset.Id,
                 Naam = dataset.Naam,
                 Beschrijving = dataset.Beschrijving,
                 Eigenaar = dataset.Eigenaar
@@ -150,5 +153,53 @@ namespace Database_Plattegrond.Controllers
 
             return View(aanvragen);
         }
+
+        public ActionResult AanvraagSturen(Aanvragen aanvraag)
+        {
+            var mail = new MailMessage();
+            mail.Subject = "Aanvraag dataset " + aanvraag.Naam;
+
+            var writer = new StringWriter();
+            writer.WriteLine("Beste " + aanvraag.Eigenaar.Naam + "");
+            writer.WriteLine();
+            writer.WriteLine();
+            writer.WriteLine("Hierbij vraag ik bij u de dataset " + aanvraag.Naam + " aan, met als verwerkingsdoeleind:");
+            writer.WriteLine();
+            writer.WriteLine(aanvraag.VerwDoeleind);
+            writer.WriteLine();
+            writer.WriteLine("Graag ontvang ik deze per: " + aanvraag.NodigVanaf);
+            writer.WriteLine();
+            writer.WriteLine("Hoogachtend,");
+            writer.WriteLine();
+            writer.WriteLine("[INGELOGDE GEBRUIKER]");
+            mail.Body = writer.ToString();
+
+            string mailText = "mailto:" + aanvraag.Eigenaar.Email + "?" + string.Join("&", Parameters(mail));
+            System.Diagnostics.Process.Start(mailText);
+
+            return RedirectToAction("Details", new { id = aanvraag.DatasetID });
+        }
+
+        static IEnumerable<string> Parameters(MailMessage message)
+        {
+            if (message.To.Any())
+                yield return "to=" + Recipients(message.To);
+
+            if (message.CC.Any())
+                yield return "cc=" + Recipients(message.CC);
+
+            if (message.Bcc.Any())
+                yield return "bcc=" + Recipients(message.Bcc);
+
+            if (!string.IsNullOrWhiteSpace(message.Subject))
+                yield return "subject=" + Uri.EscapeDataString(message.Subject);
+
+            if (!string.IsNullOrWhiteSpace(message.Body))
+                yield return "body=" + Uri.EscapeDataString(message.Body);
+        }
+
+        static string Recipients(MailAddressCollection addresses) =>
+            string.Join(",", from r in addresses
+                             select Uri.EscapeDataString(r.Address));
     }
 }
