@@ -42,8 +42,11 @@ namespace Database_Plattegrond.Controllers
         {
             ViewBag.Message = "Dataset pagina";
 
-            DatasetsDatabaseService DDS = new DatasetsDatabaseService();
-            Dataset dataset = DDS.GetDatasetFromId(id.Value);
+            DatasetsDatabaseService datasetsDS = new DatasetsDatabaseService();
+            Dataset dataset = datasetsDS.GetDatasetFromId(id.Value);
+
+            DomeinenDatabaseService domeinenDS = new DomeinenDatabaseService();
+            dataset.Domeinen = domeinenDS.GetDomeinenVoorDataset(id.Value);
 
             CommentDatabaseService CDS = new CommentDatabaseService();
             //TODO Sorteer comments op logische wijze

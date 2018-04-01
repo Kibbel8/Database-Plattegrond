@@ -34,13 +34,13 @@
                 @Html.HiddenFor(m => m.Eigenaar.Naam)
                 <p>
                     @Html.LabelFor(m => m.VerwDoeleind, "Verwerkingsdoeleind")
-                    @Html.TextAreaFor(m => m.VerwDoeleind, new { @class = "form-control" })
+                    @Html.TextAreaFor(m => m.VerwDoeleind, new { @class = "form-control", @validate = "RequiredField" })
                 </p>
                 <p>
                     @Html.LabelFor( m => m.NodigVanaf, "Nodig Vanaf")
-                    @Html.TextBoxFor(m => m.NodigVanaf, new { @class = "form-control", @placeholder = "Datum of p. direct"})
+                    @Html.TextBoxFor(m => m.NodigVanaf, new { @class = "form-control", @validate = "RequiredField", @placeholder = "Datum of p. direct"})
                 </p>
-                <input class="form-control btn" id="aanvraagSturen" name="aanvraagSturen" type="submit" value="Versturen">
+                <input class="form-control btn" id="aanvraagSturen" name="aanvraagSturen" type="submit" value="Versturen" required="required">
             }
         </div>
     </div>

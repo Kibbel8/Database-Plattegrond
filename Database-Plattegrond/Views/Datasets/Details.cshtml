@@ -5,12 +5,12 @@
 <br />
 
 <div>
-    <p>Domein: ICON</p>
-</div>
-<div>
-    <p>
-        <strong>Applicatie:</strong> @Model.Dataset.Applicatie<br />
-        Aangemaakt op: @Model.Dataset.DatumAangemaakt<br />
+    <p><a href="/domeinen">Domeinen</a> /
+    @foreach (Database_Plattegrond.Models.Domein domein in Model.Dataset.Domeinen)
+    {
+        <a href="/domeinen/?domein=@domein.Naam">@domein.Naam</a>
+    }
+    / @Model.Dataset.Naam
     </p>
 </div>
 
@@ -20,7 +20,7 @@
 <hr />
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-0">
+        <div class="col-md-8">
             <h3>Beschrijving</h3>
             <p>@Model.Dataset.Beschrijving</p>
             
@@ -43,18 +43,17 @@
         </div>
     </div>
     <div class="row">
+        <br />
         <div style="color:#b3b3b3; font-size:small;">
-            <p>
-                Aangemaakt op: @Model.Dataset.DatumAangemaakt
-            </p>
+            <p>Applicatie: @Model.Dataset.Applicatie</p>
+            <p>Aangemaakt op: @Model.Dataset.DatumAangemaakt</p>
         </div>
         <a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
-        <a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvraagformulier</a>
+        <a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvragen</a>
     </div>
     <div class="row">
         <div>
             <hr />
-
             <h4><div style="text-align:left;">Reageer</div></h4>
             @using (Html.BeginForm("SubmitComment", "Datasets"))
             {
@@ -64,15 +63,19 @@
                 </p>
                 <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Verzenden">
             }
-
             <hr />
-
             @foreach (Database_Plattegrond.Models.Comment comment in Model.Comments)
             {
                 <p>
-                    <strong>Naam:</strong>    @comment.Gebruiker.Naam<br />
-                    <strong>Datum:</strong>   @comment.DatumGeplaatst<br />
-                    <strong>Opmerking:</strong> @comment.Tekst<br />
+                    @*<div style="color:#b3b3b3;">*@
+                        <strong>@comment.Gebruiker.Naam</strong> | 
+                        @comment.DatumGeplaatst.ToShortDateString() | 
+                        @comment.Status
+                        <br />
+                    @*</div>*@
+                    <div>
+                        @comment.Tekst<br />
+                    </div>
                 </p>
                 <br />
             }

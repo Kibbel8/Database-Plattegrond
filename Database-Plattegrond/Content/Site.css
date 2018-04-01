@@ -60,19 +60,19 @@ textarea {
     border-width: 0 0 5px 0px;
 }
 
-    .navbar-inverse .navbar-brand {
-        color: #FFFFFF;
-    }
+.navbar-inverse .navbar-brand {
+    color: #FFFFFF;
+}
 
-    .navbar-inverse .navbar-nav > li > a {
-        color: #ffffff;
-    }
+.navbar-inverse .navbar-nav > li > a {
+    color: #ffffff;
+}
 
-        .navbar-inverse .navbar-nav > li > a:hover,
-        .navbar-inverse .navbar-nav > li > a:focus {
-            color: #76bcf7;
-            background-color: transparent;
-        }
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    color: #76bcf7;
+    background-color: transparent;
+}
 
 .domein {
     height: 150px;
