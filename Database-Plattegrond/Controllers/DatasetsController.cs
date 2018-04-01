@@ -31,7 +31,7 @@ namespace Database_Plattegrond.Controllers
             }
 
             DomeinenDatabaseService domDS = new DomeinenDatabaseService();
-            datasetsViewModel.Domeinen = domDS.GetAlleDomeinen();
+            datasetsViewModel.Domeinen = domDS.GetHoofdDomeinen();
 
             return View(datasetsViewModel);
         }
@@ -73,7 +73,7 @@ namespace Database_Plattegrond.Controllers
             return RedirectToAction("Details", new { id = datasetDetail.Dataset.Id });
         }
 
-        public ActionResult DatasetBewerken(int? id = -1)
+        public ActionResult Bewerken(int? id = -1)
         {
             ViewBag.Message = "Dataset Bewerken";
 
@@ -106,7 +106,7 @@ namespace Database_Plattegrond.Controllers
         }
 
         [HttpPost]
-        public ActionResult DatasetBewerken(DatasetBewerken model)
+        public ActionResult Bewerken(DatasetBewerken model)
         {
             ViewBag.Message = "Dataset Bewerken";
 

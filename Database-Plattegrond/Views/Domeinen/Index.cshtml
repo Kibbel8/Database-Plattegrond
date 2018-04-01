@@ -11,9 +11,20 @@
                 @Domein.Naam
             </div>
             <div class="img-container">
-                <img src="~/Images/bloem.png" alt="@Domein.Naam"/>
-            </div>
-        </a>
-    }
-}
-<div class="clearfix"></div>
+                @{ if (Domein.Image != null)
+                    {
+                        var base64 = Convert.ToBase64String(Domein.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                        <img src="@imgSrc" alt="@Domein.Naam" />
+                    }
+                    else
+                    {
+                        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="@Domein.Naam" />
+                    }
+                }
+                </div>
+            </a>
+                }
+                }
+                <div class="clearfix"></div>
