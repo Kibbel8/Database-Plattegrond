@@ -246,7 +246,20 @@ namespace Database_Plattegrond.DatabaseService
 
         public int DeleteDataset(int datasetID)
         {
-            throw new NotImplementedException();
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+                connection.Open();
+                command.CommandText = "DELETE FROM dataset WHERE ID = @ID";
+
+                command.Parameters.AddWithValue("@ID", datasetID);
+
+
+                int rowsAffected = command.ExecuteNonQuery();
+                connection.Close();
+
+                return rowsAffected;
+            }
         }
 
         public int InsertDatasetDomein(int datasetID, string domeinNaam)

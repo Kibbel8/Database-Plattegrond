@@ -216,5 +216,12 @@ namespace Database_Plattegrond.Controllers
         static string Recipients(MailAddressCollection addresses) =>
             string.Join(",", from r in addresses
                              select Uri.EscapeDataString(r.Address));
+        public ActionResult Verwijderen(int? id = -1)
+        {
+            DatasetsDatabaseService datasetsDatabaseService = new DatasetsDatabaseService();
+            
+            datasetsDatabaseService.DeleteDataset(id.Value);
+            return RedirectToAction("Index");
+        }
     }
 }

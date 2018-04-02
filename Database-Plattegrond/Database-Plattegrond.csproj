@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BeheerController.cs" />
     <Compile Include="Controllers\DatasetsController.cs" />
     <Compile Include="Controllers\DomeinenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -180,6 +181,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\bloem.png" />
+    <Content Include="Images\plus.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -228,6 +230,8 @@
     <Content Include="Views\Domeinen\Toevoegen.cshtml" />
     <Content Include="Views\Datasets\AanvraagFormulier.cshtml" />
     <Content Include="Views\Zoeken\Index.cshtml" />
+    <Content Include="Views\Beheer\Index.cshtml" />
+    <Content Include="Views\Beheer\Domeinen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
