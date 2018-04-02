@@ -20,44 +20,25 @@ namespace Database_Plattegrond.Utils
         /// <returns>returns a byte array of the new rescaled image</returns>
         public byte[] ScaleImage(byte[] imageArray, int maxWidth, int maxHeight)
         {
-            using (MemoryStream memStream = new MemoryStream(imageArray)) 
+            using (MemoryStream memStream = new MemoryStream(imageArray))
             {
                 var image = Image.FromStream(memStream);
 
-                    var ratioX = (double)maxWidth / image.Width;
-                    var ratioY = (double)maxHeight / image.Height;
-                    var ratio = Math.Min(ratioX, ratioY);
+                var ratioX = (double)maxWidth / image.Width;
+                var ratioY = (double)maxHeight / image.Height;
+                var ratio = Math.Min(ratioX, ratioY);
 
-                    var newWidth = (int)(image.Width * ratio);
-                    var newHeight = (int)(image.Height * ratio);
+                var newWidth = (int)(image.Width * ratio);
+                var newHeight = (int)(image.Height * ratio);
 
-                    var newImage = new Bitmap(newWidth, newHeight);
+                var newImage = new Bitmap(newWidth, newHeight);
 
-                    var graphics = Graphics.FromImage(newImage);
-                    graphics.DrawImage(image, 0, 0, newWidth, newHeight);
+                var graphics = Graphics.FromImage(newImage);
+                graphics.DrawImage(image, 0, 0, newWidth, newHeight);
 
-                    newImage.Save(memStream, ImageFormat.Png);
+                newImage.Save(memStream, ImageFormat.Png);
 
-                    return memStream.ToArray();
-            }
-        }
-
-        public byte[] ImageToByteArray(System.Drawing.Image imageIn)
-        {
-            using (var ms = new MemoryStream())
-            {
-                imageIn.Save(ms, ImageFormat.Png);
-                byte[] a = ms.ToArray();
-                ms.Dispose();
-                return a;
-            }
-        }
-
-        public Image ByteArrayToImage(byte[] imageArray)
-        {
-            using (var ms = new MemoryStream(imageArray))
-            {
-                return Image.FromStream(ms);
+                return memStream.ToArray();
             }
         }
     }

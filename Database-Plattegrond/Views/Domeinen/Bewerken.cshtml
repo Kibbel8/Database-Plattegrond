@@ -1,0 +1,88 @@
+﻿@model Database_Plattegrond.Models.Domein
+@{
+    ViewBag.Title = "Domein Bewerken";
+}
+
+<a class="btn btn-info" style="float:left" href="/Domeinen">Terug</a>
+<h2 class="titel">Domein Bewerken</h2>
+
+@using (Html.BeginForm("Verwijderen", "Domeinen", FormMethod.Post))
+{
+    <div class="col-xs-3"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#verwijderenModal">Verwijderen</button></div>
+}
+@using (Html.BeginForm("Bewerken", "Domeinen", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="col-xs-3">
+        @Html.Label("Naam")
+        @Html.TextBoxFor(m => m.Naam, new { @class = "form-control " })
+    </div>
+
+    <div class="col-xs-3">
+        <div class="domein-bewerken">
+            <div class="domein-bewerken-child">@Html.Label("Domein icoon: (75x75)")</div>
+            <div class="upload-btn-wrapper">
+                @{ if (Model.Image != null)
+                    {
+                        var base64 = Convert.ToBase64String(Model.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        <img id="image-preview" class="domein-bewerken-child" src="@imgSrc" alt="your image" width="75" height="75" onclick="openFile();" />
+                    }
+                    else
+                    {
+                        <img id="image-preview" class="domein-bewerken-child" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="your image" width="75" height="75" onclick="openFile();" />
+                    }
+                }
+                <button class="btn btn-info form-control">Icoon uploaden</button>
+                <input type="file" name="PostedFile" for="PostedFile" accept="image/*" onchange="readfile(this);" id="filePicker" />
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="domein-bewerken">
+        <input class="form-control btn btn-success domein-bewerken-child" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
+    </div>
+                    }
+
+<div class="modal fade" id="verwijderenModal" tabindex="-1" role="dialog" aria-labelledby="verwijderenModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Weet u zeker dat u domein: @Model.Naam wilt verwijderen?</p>
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Verwijderen", "Domeinen", FormMethod.Post))
+                {
+                    @Html.Hidden("domeinNaam", Model.Naam)
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuleren</button>
+                    <input class="btn btn-danger" type="submit" value="Verwijderen"/>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<script type="text/javascript">
+
+    function readfile(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#image-preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function openFile() {
+        document.getElementById("filePicker").click();
+    }
+</script>

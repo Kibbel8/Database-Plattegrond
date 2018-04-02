@@ -41,13 +41,23 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "SELECT Naam from Domein WHERE Is_Subdomein_van IS NULL";
+                command.CommandText = "SELECT Naam, Thumbnail, DATALENGTH(Thumbnail) as DATALENGTH  from Domein WHERE Is_Subdomein_van IS NULL";
 
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
                     Domein domein = new Domein { Naam = reader.GetString(0) };
+
+                    int dataLength = -1;
+                    Int32.TryParse(reader["DATALENGTH"].ToString(), out dataLength);
+                    if (dataLength > 0)
+                    {
+                        byte[] imageBytes = new byte[dataLength];
+                        reader.GetBytes(1, 0, imageBytes, 0, dataLength);
+                        domein.Image = imageBytes;
+                    }
+
                     domeinen.Add(domein);
                 }
 
@@ -64,7 +74,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "SELECT Naam from Domein WHERE Is_Subdomein_van IS @domein";
+                command.CommandText = "SELECT Naam from Domein, Thumbnail, DATALENGTH(Thumbnail) as DATALENGTH WHERE Is_Subdomein_van IS @domein";
 
                 command.Parameters.AddWithValue("@domein", domeinNaam);
 
@@ -72,6 +82,16 @@ namespace Database_Plattegrond.DatabaseService
                 while (reader.Read())
                 {
                     Domein subDomein = new Domein { Naam = reader.GetString(0) };
+
+                    int dataLength = -1;
+                    Int32.TryParse(reader["DATALENGTH"].ToString(), out dataLength);
+                    if (dataLength > 0)
+                    {
+                        byte[] imageBytes = new byte[dataLength];
+                        reader.GetBytes(1, 0, imageBytes, 0, dataLength);
+                        subDomein.Image = imageBytes;
+                    }
+
                     subDomeinen.Add(subDomein);
                 }
 
@@ -88,7 +108,7 @@ namespace Database_Plattegrond.DatabaseService
 
             SqlCommand command = new SqlCommand("", connection)
             {
-                CommandText = "select Naam, Is_Subdomein_van from domein where Naam = @Naam;"
+                CommandText = "select Naam, Is_Subdomein_van, Thumbnail, DATALENGTH(Thumbnail) as DATALENGTH from domein where Naam = @Naam;"
             };
             command.Parameters.AddWithValue("@Naam", naam);
 
@@ -98,10 +118,18 @@ namespace Database_Plattegrond.DatabaseService
             {
                 Domein domein = new Domein
                 {
-                    Naam = naam,
+                    Naam = reader["Naam"].ToString(),
                     SubdomeinVan = reader["Is_Subdomein_van"].ToString()
-
                 };
+
+                int dataLength = -1;
+                Int32.TryParse(reader["DATALENGTH"].ToString(), out dataLength);
+                if (dataLength > 0)
+                {
+                    byte[] imageBytes = new byte[dataLength];
+                    reader.GetBytes(2, 0, imageBytes, 0, dataLength);
+                    domein.Image = imageBytes;
+                }
 
                 connection.Close();
                 return domein;
@@ -141,7 +169,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "Update domein SET Naam = @Naam, Is_Subdomein_van = @Is_Subdomein_van WHERE Naam=@Naam";
+                command.CommandText = "Update domein SET Naam = @Naam, Is_Subdomein_van = @Is_Subdomein_van, Thumbnail = @Thumbnail WHERE Naam=@Naam";
 
                 command.Parameters.AddWithValue("@Naam", domein.Naam);
 
@@ -149,6 +177,11 @@ namespace Database_Plattegrond.DatabaseService
                     command.Parameters.AddWithValue("@Is_Subdomein_van", DBNull.Value);
                 else
                     command.Parameters.AddWithValue("@Is_Subdomein_van", domein.SubdomeinVan);
+
+                if (domein.Image == null)
+                    command.Parameters.AddWithValue("@Thumbnail", DBNull.Value);
+                else
+                    command.Parameters.AddWithValue("@Thumbnail", domein.Image);
 
                 int rowsAffected = command.ExecuteNonQuery();
                 connection.Close();
@@ -163,7 +196,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "INSERT INTO domein (Naam, Is_Subdomein_van) VALUES (@Naam, @Is_Subdomein_van)";
+                command.CommandText = "INSERT INTO domein (Naam, Is_Subdomein_van, Thumbnail) VALUES (@Naam, @Is_Subdomein_van, @Thumbnail)";
 
                 command.Parameters.AddWithValue("@Naam", domein.Naam);
 
@@ -172,6 +205,12 @@ namespace Database_Plattegrond.DatabaseService
                 else
                     command.Parameters.AddWithValue("@Is_Subdomein_van", domein.SubdomeinVan);
 
+                if (domein.Image == null)
+                    command.CommandText = command.CommandText.Replace("@Thumbnail", "NULL");
+                    //command.Parameters.AddWithValue("@Thumbnail", DBNull.Value);
+                else
+                    command.Parameters.AddWithValue("@Thumbnail", domein.Image);
+
                 int rowsAffected = command.ExecuteNonQuery();
                 connection.Close();
 
@@ -179,7 +218,7 @@ namespace Database_Plattegrond.DatabaseService
             }
         }
 
-        public int DeleteDomein(Domein domein)
+        public int DeleteDomein(string domeinNaam)
         {
             SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
             using (SqlCommand command = new SqlCommand("", connection))
@@ -187,7 +226,7 @@ namespace Database_Plattegrond.DatabaseService
                 connection.Open();
                 command.CommandText = "DELETE FROM domein WHERE Naam = @Naam";
 
-                command.Parameters.AddWithValue("@Naam", domein.Naam);
+                command.Parameters.AddWithValue("@Naam", domeinNaam);
 
 
                 int rowsAffected = command.ExecuteNonQuery();
