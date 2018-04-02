@@ -85,13 +85,15 @@ namespace Database_Plattegrond.Controllers
         {
             ViewBag.Message = "Dataset Bewerken";
 
-            DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            Dataset dataset = dds.GetDatasetFromId(id.Value);
+            DatasetsDatabaseService datasetsDS = new DatasetsDatabaseService();
+            Dataset dataset = datasetsDS.GetDatasetFromId(id.Value);
 
-            DomeinenDatabaseService domeinDatabaseService = new DomeinenDatabaseService();
-            List<Domein> domeinen = domeinDatabaseService.GetAlleDomeinen();
+            DomeinenDatabaseService domeinenDS = new DomeinenDatabaseService();
+            List<Domein> domeinen = domeinenDS.GetAlleDomeinen();
+            List<Domein> domeinenVoorDataset = domeinenDS.GetDomeinenVoorDataset(id.Value);
 
-            List<Domein> domeinenVoorDataset = domeinDatabaseService.GetDomeinenVoorDataset(id.Value);
+            GebruikersDatabaseService gebruikersDS = new GebruikersDatabaseService();
+            List<Gebruiker> gebruikers = gebruikersDS.GetAllGebruikers();
 
             foreach (Domein datasetDomein in domeinenVoorDataset)
             {
@@ -106,9 +108,16 @@ namespace Database_Plattegrond.Controllers
             DatasetBewerken datasetBewerken = new DatasetBewerken
             {
                 Dataset = dataset,
-                TypeDatasets = new List<SelectListItem> { { new SelectListItem { Text = "Test 1", Value = "Test 1" } }, { new SelectListItem { Text = "Test 2", Value = "Test 2" } } },
-                Domeinen = domeinen
+                Domeinen = domeinen,
+                Gebruikers = new List<SelectListItem>(),
+                TypeDatasets = new List<SelectListItem> { { new SelectListItem { Text = "Test 1", Value = "Test 1" } }, { new SelectListItem { Text = "Test 2", Value = "Test 2" } } }
             };
+
+            foreach (Gebruiker gebruiker in gebruikers)
+            {
+                SelectListItem item = new SelectListItem { Text = gebruiker.Naam, Value = gebruiker.ID.ToString() };
+                datasetBewerken.Gebruikers.Add(item);
+            }
 
             return View(datasetBewerken);
         }
@@ -119,7 +128,7 @@ namespace Database_Plattegrond.Controllers
             ViewBag.Message = "Dataset Bewerken";
 
             DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            int rowsAffected = dds.UpdateDataset(model.Dataset);
+            int rowsAffected = dds.UpdateDataset(model.Dataset, model.Domeinen);
             return RedirectToAction("Details", new { id = model.Dataset.Id });
         }
 

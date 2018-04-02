@@ -113,13 +113,13 @@ namespace Database_Plattegrond.DatabaseService
             }
         }
 
-        public int UpdateDataset(Dataset dataset)
+        public int UpdateDataset(Dataset dataset, List<Domein> domeinen)
         {
             SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "Update dataset SET naam = @naam, beschrijving = @beschrijving, datum_aangemaakt = @datum_aangemaakt, link_open_data = @link_open_data, zoektermen = @zoektermen, eigenaar = @eigenaar, applicatie = @applicatie WHERE ID=@ID";
+                command.CommandText = "UPDATE dataset SET naam = @naam, beschrijving = @beschrijving, datum_aangemaakt = @datum_aangemaakt, link_open_data = @link_open_data, zoektermen = @zoektermen, eigenaar = @eigenaar, applicatie = @applicatie WHERE ID=@ID";
 
                 command.Parameters.AddWithValue("@ID", dataset.Id);
 
@@ -147,18 +147,39 @@ namespace Database_Plattegrond.DatabaseService
                 if (dataset.Eigenaar == null)
                     command.Parameters.AddWithValue("@eigenaar", DBNull.Value);
                 else
-                    command.Parameters.AddWithValue("@eigenaar", dataset.Eigenaar);
+                    command.Parameters.AddWithValue("@eigenaar", dataset.Eigenaar.ID);
 
                 if (dataset.Applicatie == null)
                     command.Parameters.AddWithValue("@applicatie", DBNull.Value);
                 else
                     command.Parameters.AddWithValue("@applicatie", dataset.Applicatie);
 
+                //foreach (Domein domein in domeinen)
+                //{
+                //      DOMEINEN TOEVOEGEN AAN DATASET
+                //}
+                
                 int rowsAffected = command.ExecuteNonQuery();
                 connection.Close();
 
                 return rowsAffected;
             }
+        }
+
+        public int AddDomeinToDataset(string domeinNaam, int datasetID)
+        {
+            //SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            //using (SqlCommand command = new SqlCommand("", connection))
+            //{
+            //    connection.Open();
+            //    command.CommandText = "UPDATE dataset SET naam = @naam, beschrijving = @beschrijving, datum_aangemaakt = @datum_aangemaakt, link_open_data = @link_open_data, zoektermen = @zoektermen, eigenaar = @eigenaar, applicatie = @applicatie WHERE ID=@ID";
+
+            //    int rowsAffected = command.ExecuteNonQuery();
+            //    connection.Close();
+
+            //    return rowsAffected;
+            //}
+            return 1;
         }
 
         public int InsertDataset(Dataset dataset)

@@ -149,6 +149,7 @@
     <Compile Include="DatabaseService\CommentDatabaseService.cs" />
     <Compile Include="DatabaseService\DatasetsDatabaseService.cs" />
     <Compile Include="DatabaseService\DomeinenDatabaseService.cs" />
+    <Compile Include="DatabaseService\GebruikersDatabaseService.cs" />
     <Compile Include="DatabaseService\RelevantDatabaseService.cs" />
     <Compile Include="DatabaseService\TestDatabaseService.cs" />
     <Compile Include="DatabaseService\ZoekenDatabaseService.cs" />

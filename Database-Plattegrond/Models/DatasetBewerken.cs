@@ -7,6 +7,7 @@ namespace Database_Plattegrond.Models
     {
         public Dataset Dataset { get; set; }
         public List<Domein> Domeinen { get; set; }
+        public List<SelectListItem> Gebruikers { get; set; }
         public List<SelectListItem> TypeDatasets { get; set; }
     }
 }
