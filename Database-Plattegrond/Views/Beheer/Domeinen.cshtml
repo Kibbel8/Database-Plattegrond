@@ -1,12 +1,23 @@
 ﻿@model Database_Plattegrond.Models.DomeinenViewModel
 @{
-    ViewBag.Title = "Domeinen";
+    ViewBag.Title = "Domeinen Bewerken";
 }
-<h2 class="titel">Domeinen</h2>
+
+<h2 class="titel">Domeinen Bewerken</h2>
+
+<a class="domein domein-new" href="/Domeinen/toevoegen">
+    <div class="domein-naam">
+        Toevoegen
+    </div>
+    <div class="img-container">
+        <img src="~/Images/plus.png" alt="Toevoegen" />
+    </div>
+</a>
+
 
 @{ foreach (Database_Plattegrond.Models.Domein Domein in @Model.Domeinen)
     {
-        <a class="domein" href="/Datasets/?domein=@Domein.Naam">
+        <a class="domein" href="/Domeinen/Bewerken/?domeinNaam=@Domein.Naam">
             <div class="domein-naam">
                 @Domein.Naam
             </div>

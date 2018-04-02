@@ -122,6 +122,7 @@ textarea {
     .domein-new:hover, .domein-new:focus {
         background-color: #e6e8ed;
         color: black;
+        border: dashed 5px #1064a8;
     }
 
 .img-container {
@@ -138,7 +139,7 @@ textarea {
         height: 100%;
     }
 
-    .img-container img {
+    .img-container img, .img-container span {
         display: inline-block;
         vertical-align: middle; /* vertical alignment of the inline element */
         font: 16px/1 Arial sans-serif; /* <-- reset the font property */
