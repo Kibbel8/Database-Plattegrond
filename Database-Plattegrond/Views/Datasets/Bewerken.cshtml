@@ -5,7 +5,7 @@
 
 <h2>@ViewBag.Message</h2>
 
-@using (Html.BeginForm("DatasetBewerken", "Datasets", FormMethod.Post))
+@using (Html.BeginForm("Bewerken", "Datasets", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.Dataset.Id)
     @Html.HiddenFor(m => m.Dataset.DatumAangemaakt)
@@ -34,13 +34,14 @@
         @Html.TextBoxFor(m => m.Dataset.Eigenaar.Naam, new { @class = "form-control" })
     </p>
     <p>
-        @Html.LabelFor(m => m.Dataset.TypeDataset, "Type Dataset")
-        @Html.DropDownListFor(m => m.Dataset.TypeDataset, Model.TypeDatasets, "Selecteer", new { @class = "form-control" })
+        @*@Html.LabelFor(m => m.Dataset.TypeDataset, "Type Dataset")
+            @Html.DropDownListFor(m => m.Dataset.TypeDataset, Model.TypeDatasets, "Selecteer", new { @class = "form-control" })*@
+
     </p>
-    <p>
-        @Html.LabelFor(m => m.Dataset.Eigenaar.Naam, "Eigenaar")
-        @Html.TextBoxFor(m => m.Dataset.Eigenaar.Naam, new { @class = "form-control" })
-    </p>
+    @*<p>
+            @Html.LabelFor(m => m.Dataset.Eigenaar.Naam, "Eigenaar")
+            @Html.TextBoxFor(m => m.Dataset.Eigenaar.Naam, new { @class = "form-control" })
+        </p>*@
     <p>
         <div style="border: 1px solid black;">
             @for (int i = 0; i < Model.Domeinen.Count; i++)
@@ -58,3 +59,4 @@
 
     <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
 }
+

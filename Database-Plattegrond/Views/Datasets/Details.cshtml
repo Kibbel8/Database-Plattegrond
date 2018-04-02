@@ -48,7 +48,8 @@
             <p>Applicatie: @Model.Dataset.Applicatie</p>
             <p>Aangemaakt op: @Model.Dataset.DatumAangemaakt</p>
         </div>
-        <a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
+        <a href="/datasets/bewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
+        <a href="/datasets/verwijderen/?id=@Model.Dataset.Id" onclick="return confirm()" class="btn btn-default" aria-label="Left Align">Verwijderen</a>
         <a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvragen</a>
     </div>
     <div class="row">
