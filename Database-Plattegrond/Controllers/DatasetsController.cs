@@ -62,18 +62,21 @@ namespace Database_Plattegrond.Controllers
         [HttpPost]
         public ActionResult SubmitComment(DatasetDetail datasetDetail)
         {
-            CommentDatabaseService CDS = new CommentDatabaseService();
-
-            Comment comment = new Comment
+            if (datasetDetail.NewCommentText != null)
             {
-                DatasetID = datasetDetail.Dataset.Id,
-                DatumGeplaatst = DateTime.Now,
-                Status = "Niet verwerkt",
-                Tekst = datasetDetail.NewCommentText,
-                Gebruiker = new Gebruiker { ID = 0 }
-            };
+                CommentDatabaseService CDS = new CommentDatabaseService();
 
-            CDS.InsertComment(comment);
+                Comment comment = new Comment
+                {
+                    DatasetID = datasetDetail.Dataset.Id,
+                    DatumGeplaatst = DateTime.Now,
+                    Status = "Niet verwerkt",
+                    Tekst = datasetDetail.NewCommentText,
+                    Gebruiker = new Gebruiker { ID = 0 }
+                };
+
+                CDS.InsertComment(comment);
+            }
 
             return RedirectToAction("Details", new { id = datasetDetail.Dataset.Id });
         }

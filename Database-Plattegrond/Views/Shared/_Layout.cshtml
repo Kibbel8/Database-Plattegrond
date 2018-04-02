@@ -26,10 +26,11 @@
                 </ul>
                 @using (Html.BeginForm("Index", "Zoeken", FormMethod.Get))
                 {
-                <div class="navbar-right" style="margin-top:8px;">
+                <div class="navbar-right">
                     <ul class="nav navbar-nav">
-                        <li>@Html.TextBox("zoekterm", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Zoeken" })</li>
-                        <li><button type="submit" value="Zoeken" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></li>
+                        <li>@Html.ActionLink("BEHEERDER DASHBOARD", "Index", "Domeinen")</li>
+                        <li style="margin-top:8px">@Html.TextBox("zoekterm", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Zoeken" })</li>
+                        <li style="margin-top:8px"><button type="submit" value="Zoeken" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></li>
                     </ul>
                 </div>
                 }

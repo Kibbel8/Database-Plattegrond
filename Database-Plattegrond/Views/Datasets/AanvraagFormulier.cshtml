@@ -24,7 +24,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            
+            <br />
             @using (Html.BeginForm("AanvraagSturen", "Datasets"))
             {
                 @Html.HiddenFor(m => m.DatasetID)
@@ -40,7 +40,7 @@
                     @Html.LabelFor( m => m.NodigVanaf, "Nodig Vanaf")
                     @Html.TextBoxFor(m => m.NodigVanaf, new { @class = "form-control", @validate = "RequiredField", @placeholder = "Datum of p. direct"})
                 </p>
-                <input class="form-control btn" id="aanvraagSturen" name="aanvraagSturen" type="submit" value="Versturen" required="required">
+                <input class="form-control btn-default" id="aanvraagSturen" name="aanvraagSturen" type="submit" value="Versturen" required="required">
             }
         </div>
     </div>

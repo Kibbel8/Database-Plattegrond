@@ -57,7 +57,7 @@ textarea {
 .navbar-inverse {
     background-color: #1476C6;
     border-color: #FDDC03;
-    border-width: 0 0 5px 0px;
+    border-width: 0 0 3px 0px;
 }
 
 .navbar-inverse .navbar-brand {
@@ -305,4 +305,8 @@ hr {
 
 .domein-bewerken-child {
     margin: auto;
+}
+
+.btn-primary {
+    background-color: #1476C6;
 }
