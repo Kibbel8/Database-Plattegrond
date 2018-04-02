@@ -62,7 +62,7 @@
             <div class="dataset-panel">
                 <div class="col-xs-12 dataset-panel-item" id="test_@i" hidden>
 
-                    @if (Model.Datasets[i].LinkOpenData == null)
+                    @if (Model.Datasets[i].LinkOpenData == "")
                     {
                         <a class="btn btn-default" href="" style="float:right">Data aanvragen</a>
                     }
@@ -71,7 +71,7 @@
                         <a class="btn btn-default" href="@Model.Datasets[i].LinkOpenData" style="float:right">Open data locatie</a>
                     }
 
-                    <header>Beschrijving:</header>
+                    <div style="font-size: 120%">Beschrijving</div>
 
                     @Model.Datasets[i].Beschrijving
                 </div>
