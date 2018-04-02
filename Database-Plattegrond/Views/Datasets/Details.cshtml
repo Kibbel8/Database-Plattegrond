@@ -23,7 +23,25 @@
         <div class="col-md-8">
             <h3>Beschrijving</h3>
             <p>@Model.Dataset.Beschrijving</p>
-            
+
+            <br />
+            <div style="color:#b3b3b3; font-size:small;">
+                <p>Applicatie: @Model.Dataset.Applicatie</p>
+                <p>Aangemaakt op: @Model.Dataset.DatumAangemaakt</p>
+            </div>
+            <a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
+            @{ 
+                if (Model.Dataset.LinkOpenData == "")
+                {
+                    <a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvragen</a>
+                }
+                else
+                {
+                    <a href="@Model.Dataset.LinkOpenData" class="btn btn-default" aria-label="Left Align">Link naar Open Data</a>
+                }
+            }
+
+
         </div>
         <div class="col-md-4">
             <h4>Links</h4>
@@ -33,24 +51,31 @@
                     <li class="list-group-item"><a href="@link.Link">@link.Naam</a></li>
                 }
             </ul>
-            
-            <h4>Contactgegevens beheerder</h4>
-            <p>
-                <strong>Naam:</strong> @Model.Dataset.Eigenaar.Naam<br />
-                <strong>E-mail:</strong> <a href="@Model.Dataset.Eigenaar.Email">@Model.Dataset.Eigenaar.Email</a><br />
-                <strong><abbr title="Telefoon Nummer">Tel:</abbr></strong> +31790000000
-            </p>
+            @if (Model.Dataset.LinkOpenData == "")
+             {
+                <h4 >Contactgegevens beheerder</h4>
+                <p>
+                    <strong>Naam:</strong> @Model.Dataset.Eigenaar.Naam<br />
+                    <strong>E-mail:</strong> <a href="@Model.Dataset.Eigenaar.Email">@Model.Dataset.Eigenaar.Email</a><br />
+                    <strong><abbr title="Telefoon Nummer">Tel:</abbr></strong> +31790000000
+                </p>
+             }
         </div>
     </div>
     <div class="row">
         <br />
-        <div style="color:#b3b3b3; font-size:small;">
+        @*<div style="color:#b3b3b3; font-size:small;">
             <p>Applicatie: @Model.Dataset.Applicatie</p>
             <p>Aangemaakt op: @Model.Dataset.DatumAangemaakt</p>
         </div>
+<<<<<<< HEAD
         <a href="/datasets/bewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
         <a href="/datasets/verwijderen/?id=@Model.Dataset.Id" onclick="return confirm()" class="btn btn-default" aria-label="Left Align">Verwijderen</a>
         <a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvragen</a>
+=======
+        <a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
+        <a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvragen</a>*@
+>>>>>>> dfe5c6feb6ffb715e951984318d9389b880df1cc
     </div>
     <div class="row">
         <div>
@@ -62,7 +87,7 @@
                 <p>
                     @Html.TextAreaFor(m => m.NewCommentText, new { @class = "form-control", @placeholder = "Plaats een opmerking" })
                 </p>
-                <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Verzenden">
+                <input class="form-control btn-default" id="submitDataset" name="submitDataset" type="submit" value="Verzenden">
             }
             <hr />
             @foreach (Database_Plattegrond.Models.Comment comment in Model.Comments)
