@@ -77,7 +77,9 @@
                     @*<div style="color:#b3b3b3;">*@
                         <strong>@comment.Gebruiker.Naam</strong> | 
                         @comment.DatumGeplaatst.ToShortDateString() | 
-                        @comment.Status
+                        @comment.Status 
+                        @*@Html.DropDownListFor(m => m.Dataset.Eigenaar.ID, Model.CommentStatussen)*@
+
                         <br />
                     @*</div>*@
                     <div>

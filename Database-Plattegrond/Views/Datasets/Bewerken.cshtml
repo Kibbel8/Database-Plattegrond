@@ -36,7 +36,7 @@
         <div class="col-md-3">
             <p>
                 @Html.LabelFor(m => m.Dataset.Eigenaar.Naam, "Eigenaar")
-                @Html.DropDownListFor(m => m.Dataset.Eigenaar.ID, Model.Gebruikers, "Selecteer", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Dataset.Eigenaar.ID, Model.Gebruikers, new { @class = "form-control" })
             </p>
             <p>
                 @Html.LabelFor(m => m.Dataset.TypeDataset, "Type Dataset")
@@ -44,7 +44,7 @@
             </p>
             <p>
                 @Html.LabelFor(m => m.Dataset.Domein.Naam, "Domein")
-                @Html.DropDownListFor(m => m.Dataset.Domein.Naam, Model.Domeinen, Model.Dataset.Domein.Naam, new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Dataset.Domein.Naam, Model.Domeinen, new { @class = "form-control" })
             </p>
         </div>
     </div>

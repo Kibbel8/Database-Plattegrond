@@ -52,7 +52,13 @@ namespace Database_Plattegrond.Controllers
             RelevantDatabaseService RDS = new RelevantDatabaseService();
             List<Relevant> links = RDS.GetRelevanteLinksVoorDataset(id.Value);
 
-            DatasetDetail datasetDetail = new DatasetDetail { Dataset = dataset, Comments = comments, Links = links};
+            DatasetDetail datasetDetail = new DatasetDetail
+            {
+                Dataset = dataset,
+                Comments = comments,
+                Links = links,
+                CommentStatussen = new List<SelectListItem> { { new SelectListItem { Text = "Niet Verwerkt", Value = "Niet Verwerkt" } }, { new SelectListItem { Text = "In Behandeling", Value = "In Behandeling" } }, { new SelectListItem { Text = "Verwerkt", Value = "Verwerkt" } } }
+            };
             return View(datasetDetail);
         }
 
