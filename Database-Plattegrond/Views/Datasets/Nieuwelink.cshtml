@@ -1,0 +1,22 @@
+﻿@model Database_Plattegrond.Models.Dataset
+@{
+    ViewBag.Title = "NieuweLink";
+}
+
+<h2>NieuweLink</h2>
+
+@using (Html.BeginForm("NieuweLinkVersturen", "Datasets", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Id)
+    <p>
+        @Html.LabelFor(m => m.NieuweLink.Naam, "Naam")
+        @Html.TextBoxFor(m => m.NieuweLink.Naam, "hoi", new { @class = "form-control" })
+    </p>
+    <p>
+        @Html.LabelFor(m => m.NieuweLink.Link, "Link")
+        @Html.TextBoxFor(m => m.NieuweLink.Link, "hoi", new { @class = "form-control" })
+    </p>
+    <input class="form-control btn-default" id="nieuweLinkVersturen" name="nieuweLinkVersturen" type="submit" value="Opslaan">
+}
+
+

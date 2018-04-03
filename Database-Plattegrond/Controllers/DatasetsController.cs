@@ -45,9 +45,6 @@ namespace Database_Plattegrond.Controllers
             DatasetsDatabaseService datasetsDS = new DatasetsDatabaseService();
             Dataset dataset = datasetsDS.GetDatasetFromId(id.Value);
 
-            DomeinenDatabaseService domeinenDS = new DomeinenDatabaseService();
-            dataset.Domeinen = domeinenDS.GetDomeinenVoorDataset(id.Value);
-
             CommentDatabaseService CDS = new CommentDatabaseService();
             //TODO Sorteer comments op logische wijze
             List<Comment> comments = CDS.GetCommentsVoorDataset(id.Value);
@@ -55,7 +52,13 @@ namespace Database_Plattegrond.Controllers
             RelevantDatabaseService RDS = new RelevantDatabaseService();
             List<Relevant> links = RDS.GetRelevanteLinksVoorDataset(id.Value);
 
-            DatasetDetail datasetDetail = new DatasetDetail { Dataset = dataset, Comments = comments, Links = links};
+            DatasetDetail datasetDetail = new DatasetDetail
+            {
+                Dataset = dataset,
+                Comments = comments,
+                Links = links,
+                CommentStatussen = new List<SelectListItem> { { new SelectListItem { Text = "Niet Verwerkt", Value = "Niet Verwerkt" } }, { new SelectListItem { Text = "In Behandeling", Value = "In Behandeling" } }, { new SelectListItem { Text = "Verwerkt", Value = "Verwerkt" } } }
+            };
             return View(datasetDetail);
         }
 
@@ -85,29 +88,38 @@ namespace Database_Plattegrond.Controllers
         {
             ViewBag.Message = "Dataset Bewerken";
 
-            DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            Dataset dataset = dds.GetDatasetFromId(id.Value);
+            //Haalt de betreffende dataset op uit DB
+            DatasetsDatabaseService datasetsDS = new DatasetsDatabaseService();
+            Dataset dataset = datasetsDS.GetDatasetFromId(id.Value);
 
-            DomeinenDatabaseService domeinDatabaseService = new DomeinenDatabaseService();
-            List<Domein> domeinen = domeinDatabaseService.GetAlleDomeinen();
+            //Haalt alle domeinen uit DB
+            DomeinenDatabaseService domeinenDS = new DomeinenDatabaseService();
+            List<Domein> domeinen = domeinenDS.GetAlleDomeinen();
+            List<SelectListItem> domeinenList = new List<SelectListItem>();
 
-            List<Domein> domeinenVoorDataset = domeinDatabaseService.GetDomeinenVoorDataset(id.Value);
-
-            foreach (Domein datasetDomein in domeinenVoorDataset)
+            foreach(Domein domein in domeinen)
             {
-                bool contains = domeinenVoorDataset.Any(domein => domein.Naam == datasetDomein.Naam);
-                if (contains)
-                {
-                    int location = domeinen.FindIndex(domein => domein.Naam == datasetDomein.Naam);
-                    domeinen[location].Selected = true;
-                }
+                SelectListItem item = new SelectListItem { Text = domein.Naam, Value = domein.Naam };
+                domeinenList.Add(item);
+            }
+
+            //Haalt alle gebruikers uit DB
+            GebruikersDatabaseService gebruikersDS = new GebruikersDatabaseService();
+            List<Gebruiker> gebruikers = gebruikersDS.GetAllGebruikers();
+            List<SelectListItem> gebruikersList = new List<SelectListItem>();
+            
+            foreach (Gebruiker gebruiker in gebruikers)
+            {
+                SelectListItem item = new SelectListItem { Text = gebruiker.Naam, Value = gebruiker.ID.ToString() };
+                gebruikersList.Add(item);
             }
 
             DatasetBewerken datasetBewerken = new DatasetBewerken
             {
                 Dataset = dataset,
-                TypeDatasets = new List<SelectListItem> { { new SelectListItem { Text = "Test 1", Value = "Test 1" } }, { new SelectListItem { Text = "Test 2", Value = "Test 2" } } },
-                Domeinen = domeinen
+                Domeinen = domeinenList,
+                Gebruikers = gebruikersList,
+                TypeDatasets = new List<SelectListItem> { { new SelectListItem { Text = "Test 1", Value = "Test 1" } }, { new SelectListItem { Text = "Test 2", Value = "Test 2" } } }
             };
 
             return View(datasetBewerken);
@@ -123,23 +135,58 @@ namespace Database_Plattegrond.Controllers
             return RedirectToAction("Details", new { id = model.Dataset.Id });
         }
 
-        public ActionResult Toevoegen()
+        public ActionResult Toevoegen(int? id = -1)
         {
             ViewBag.Message = "Dataset Pagina toevoegen";
 
-            return View();
+            //Haalt betreffende dataset uit DB
+            DatasetsDatabaseService datasetsDS = new DatasetsDatabaseService();
+            Dataset dataset = datasetsDS.GetDatasetFromId(id.Value);
+
+            //Haalt alle domeinen uit DB
+            DomeinenDatabaseService domeinenDS = new DomeinenDatabaseService();
+            List<Domein> domeinen = domeinenDS.GetAlleDomeinen();
+            List<SelectListItem> domeinenList = new List<SelectListItem>();
+
+            foreach (Domein domein in domeinen)
+            {
+                SelectListItem item = new SelectListItem { Text = domein.Naam, Value = domein.Naam };
+                domeinenList.Add(item);
+            }
+
+            //Haalt alle gebruikers uit DB
+            GebruikersDatabaseService GDS = new GebruikersDatabaseService();
+            List<Gebruiker> gebruikers = GDS.GetAllGebruikers();
+            List<SelectListItem> gebruikersList = new List<SelectListItem>();
+
+            foreach (Gebruiker gebruiker in gebruikers)
+            {
+                SelectListItem item = new SelectListItem { Text = gebruiker.Naam, Value = gebruiker.ID.ToString() };
+                gebruikersList.Add(item);
+            }
+
+            DatasetToevoegen datasetToevoegen = new DatasetToevoegen
+            {
+                Dataset = dataset,
+                Domeinen = domeinenList,
+                Gebruikers = gebruikersList,
+                TypeDatasets = new List<SelectListItem> { { new SelectListItem { Text = "Test 1", Value = "Test 1" } }, { new SelectListItem { Text = "Test 2", Value = "Test 2" } } }
+            };
+
+            return View(datasetToevoegen);
         }
 
         [HttpPost]
-        public ActionResult Toevoegen(Dataset model)
+        public ActionResult Toevoegen(DatasetBewerken model)
         {
             ViewBag.Message = "Dataset Pagina toevoegen";
-            model.DatumAangemaakt = DateTime.Now;
+            model.Dataset.DatumAangemaakt = DateTime.Now;
 
-            DatasetsDatabaseService dds = new DatasetsDatabaseService();
-            int id = dds.InsertDataset(model);
+            //Voeg dataset toe aan DB
+            DatasetsDatabaseService datasetsDS = new DatasetsDatabaseService();
+            int id = datasetsDS.InsertDataset(model.Dataset);
 
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("Details", new { id });
         }
 
         public ActionResult AanvraagFormulier(int? id = -1)
@@ -162,8 +209,7 @@ namespace Database_Plattegrond.Controllers
 
         public ActionResult AanvraagSturen(Aanvragen aanvraag)
         {
-            var mail = new MailMessage();
-            mail.Subject = "Aanvraag dataset " + aanvraag.Naam;
+            var mail = new MailMessage{ Subject = "Aanvraag dataset " + aanvraag.Naam };
 
             var writer = new StringWriter();
             writer.WriteLine("Beste " + aanvraag.Eigenaar.Naam + "");
@@ -207,5 +253,33 @@ namespace Database_Plattegrond.Controllers
         static string Recipients(MailAddressCollection addresses) =>
             string.Join(",", from r in addresses
                              select Uri.EscapeDataString(r.Address));
+
+        public ActionResult Verwijderen(int? id = -1)
+        {
+            DatasetsDatabaseService datasetsDatabaseService = new DatasetsDatabaseService();
+            
+            datasetsDatabaseService.DeleteDataset(id.Value);
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult NieuweLink(int? id = -1)
+        {
+            ViewBag.Message = "NieuweLink";
+
+            DatasetsDatabaseService dds = new DatasetsDatabaseService();
+            Dataset dataset = dds.GetDatasetFromId(id.Value);
+
+            return View(dataset);
+        }
+
+        public ActionResult NieuweLinkVersturen(Dataset dataset)
+        {
+
+            dataset.NieuweLink.DatasetID = dataset.Id;
+            RelevantDatabaseService rds = new RelevantDatabaseService();
+            rds.InsertRelevanteLink(dataset.NieuweLink);
+
+            return RedirectToAction("Details", new { id = dataset.Id });
+        }
     }
 }

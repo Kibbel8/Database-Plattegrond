@@ -5,56 +5,49 @@
 
 <h2>@ViewBag.Message</h2>
 
-@using (Html.BeginForm("DatasetBewerken", "Datasets", FormMethod.Post))
+@using (Html.BeginForm("Bewerken", "Datasets", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.Dataset.Id)
     @Html.HiddenFor(m => m.Dataset.DatumAangemaakt)
-    <p>
-        @Html.LabelFor(m => m.Dataset.Naam)
-        @Html.TextBoxFor(m => m.Dataset.Naam, new { @class = "form-control " })
-    </p>
-    <p>
-        @Html.LabelFor(m => m.Dataset.Beschrijving)
-        @Html.TextAreaFor(m => m.Dataset.Beschrijving, new { @class = "form-control" })
-    </p>
-    <p>
-        @Html.LabelFor(m => m.Dataset.Applicatie, "Naam Applicatie")
-        @Html.TextBoxFor(m => m.Dataset.Applicatie, new { @class = "form-control" })
-    </p>
-    <p>
-        @Html.LabelFor(m => m.Dataset.LinkOpenData, "Link Opendata")
-        @Html.TextBoxFor(m => m.Dataset.LinkOpenData, new { @class = "form-control" })
-    </p>
-    <p>
-        @Html.LabelFor(m => m.Dataset.Zoektermen, "Zoektermen")
-        @Html.TextBoxFor(m => m.Dataset.Zoektermen, new { @class = "form-control" })
-    </p>
-    <p>
-        @Html.LabelFor(m => m.Dataset.Eigenaar.Naam, "Eigenaar")
-        @Html.TextBoxFor(m => m.Dataset.Eigenaar.Naam, new { @class = "form-control" })
-    </p>
-    <p>
-        @Html.LabelFor(m => m.Dataset.TypeDataset, "Type Dataset")
-        @Html.DropDownListFor(m => m.Dataset.TypeDataset, Model.TypeDatasets, "Selecteer", new { @class = "form-control" })
-    </p>
-    <p>
-        @Html.LabelFor(m => m.Dataset.Eigenaar.Naam, "Eigenaar")
-        @Html.TextBoxFor(m => m.Dataset.Eigenaar.Naam, new { @class = "form-control" })
-    </p>
-    <p>
-        <div style="border: 1px solid black;">
-            @for (int i = 0; i < Model.Domeinen.Count; i++)
-            {
-                <div class="checkbox">
-                    <label>
-                        @Html.HiddenFor(m => m.Domeinen[i].Naam)
-                        @Html.CheckBoxFor(m => m.Domeinen[i].Selected)
-                        @Model.Domeinen[i].Naam
-                    </label>
-                </div>
-            }
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p>
+                @Html.LabelFor(m => m.Dataset.Naam)
+                @Html.TextBoxFor(m => m.Dataset.Naam, new { @class = "form-control " })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Dataset.Beschrijving)
+                @Html.TextAreaFor(m => m.Dataset.Beschrijving, new { @class = "form-control" })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Dataset.Applicatie, "Naam Applicatie")
+                @Html.TextBoxFor(m => m.Dataset.Applicatie, new { @class = "form-control" })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Dataset.LinkOpenData, "Link Opendata")
+                @Html.TextBoxFor(m => m.Dataset.LinkOpenData, new { @class = "form-control" })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Dataset.Zoektermen, "Zoektermen")
+                @Html.TextBoxFor(m => m.Dataset.Zoektermen, new { @class = "form-control" })
+            </p>
         </div>
-    </p>
-
-    <input class="form-control btn" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
+        <div class="col-md-3">
+            <p>
+                @Html.LabelFor(m => m.Dataset.Eigenaar.Naam, "Eigenaar")
+                @Html.DropDownListFor(m => m.Dataset.Eigenaar.ID, Model.Gebruikers, new { @class = "form-control" })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Dataset.TypeDataset, "Type Dataset")
+                @Html.DropDownListFor(m => m.Dataset.TypeDataset, Model.TypeDatasets, "Selecteer", new { @class = "form-control" })
+            </p>
+            <p>
+                @Html.LabelFor(m => m.Dataset.Domein.Naam, "Domein")
+                @Html.DropDownListFor(m => m.Dataset.Domein.Naam, Model.Domeinen, new { @class = "form-control" })
+            </p>
+        </div>
+    </div>
+    <input class="form-control btn-default" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
+</div>
 }

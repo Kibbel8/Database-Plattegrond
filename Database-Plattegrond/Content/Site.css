@@ -97,7 +97,7 @@ textarea {
 .domein-klein {
     height: 50px;
     width: 50px;
-    border: 2px solid yellow;
+    border: 2px solid #FDDC03;
 }
 
 .domein-selected {
@@ -314,6 +314,16 @@ hr {
 
 .btn-primary {
     background-color: #1476C6;
+}
+
+.plus-small {
+    background-image: url('/Images/plus-sm-zwrt.png');
+    height: 20px;
+    width: 20px;
+}
+    .plus-small:hover {
+        background-image: url('/Images/plus-sm-hover.png');
+    }
 }
 
 .type-dataset {

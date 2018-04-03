@@ -5,12 +5,10 @@
 <br />
 
 <div>
-    <p><a href="/domeinen">Domeinen</a> /
-    @foreach (Database_Plattegrond.Models.Domein domein in Model.Dataset.Domeinen)
-    {
-        <a href="/domeinen/?domein=@domein.Naam">@domein.Naam</a>
-    }
-    / @Model.Dataset.Naam
+    <p>
+        <a href="/domeinen">Domeinen</a> / 
+        <a href="/datasets/?domein=@Model.Dataset.Domein.Naam">@Model.Dataset.Domein.Naam</a>
+        / @Model.Dataset.Naam
     </p>
 </div>
 
@@ -29,7 +27,7 @@
                 <p>Applicatie: @Model.Dataset.Applicatie</p>
                 <p>Aangemaakt op: @Model.Dataset.DatumAangemaakt</p>
             </div>
-            <a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
+            <a href="/datasets/bewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
             @{ 
                 if (Model.Dataset.LinkOpenData == "")
                 {
@@ -50,26 +48,15 @@
                 {
                     <li class="list-group-item"><a href="@link.Link">@link.Naam</a></li>
                 }
+                <li class="list-group-item"><a href="/datasets/nieuwelink/?id=@Model.Dataset.Id"><div class="plus-small"></div></a></li>
             </ul>
-            @if (Model.Dataset.LinkOpenData == "")
-             {
-                <h4 >Contactgegevens beheerder</h4>
-                <p>
-                    <strong>Naam:</strong> @Model.Dataset.Eigenaar.Naam<br />
-                    <strong>E-mail:</strong> <a href="@Model.Dataset.Eigenaar.Email">@Model.Dataset.Eigenaar.Email</a><br />
-                    <strong><abbr title="Telefoon Nummer">Tel:</abbr></strong> +31790000000
-                </p>
-             }
+            <h4 >Contactgegevens beheerder</h4>
+            <p>
+                <strong>Naam:</strong> @Model.Dataset.Eigenaar.Naam<br />
+                <strong>E-mail:</strong> <a href="@Model.Dataset.Eigenaar.Email">@Model.Dataset.Eigenaar.Email</a><br />
+                <strong><abbr title="Telefoon Nummer">Tel:</abbr></strong> +31790000000
+            </p>
         </div>
-    </div>
-    <div class="row">
-        <br />
-        @*<div style="color:#b3b3b3; font-size:small;">
-            <p>Applicatie: @Model.Dataset.Applicatie</p>
-            <p>Aangemaakt op: @Model.Dataset.DatumAangemaakt</p>
-        </div>
-        <a href="/datasets/datasetbewerken/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Bewerken</a>
-        <a href="/datasets/aanvraagformulier/?id=@Model.Dataset.Id" class="btn btn-default" aria-label="Left Align">Aanvragen</a>*@
     </div>
     <div class="row">
         <div>
@@ -90,7 +77,9 @@
                     @*<div style="color:#b3b3b3;">*@
                         <strong>@comment.Gebruiker.Naam</strong> | 
                         @comment.DatumGeplaatst.ToShortDateString() | 
-                        @comment.Status
+                        @comment.Status 
+                        @*@Html.DropDownListFor(m => m.Dataset.Eigenaar.ID, Model.CommentStatussen)*@
+
                         <br />
                     @*</div>*@
                     <div>
