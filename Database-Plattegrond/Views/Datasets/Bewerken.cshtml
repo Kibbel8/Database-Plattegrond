@@ -41,21 +41,10 @@
             <p>
                 @Html.LabelFor(m => m.Dataset.TypeDataset, "Type Dataset")
                 @Html.DropDownListFor(m => m.Dataset.TypeDataset, Model.TypeDatasets, "Selecteer", new { @class = "form-control" })
-            </p>    
+            </p>
             <p>
-            @Html.Label("Domeinen")
-            <div class="panel panel-default">
-                @for (int i = 0; i < Model.Domeinen.Count; i++)
-                {
-                    <div class="checkbox" style="margin-left:10px">
-                        <label>
-                            @Html.HiddenFor(m => m.Domeinen[i].Naam)
-                            @Html.CheckBoxFor(m => m.Domeinen[i].Selected)
-                            @Model.Domeinen[i].Naam
-                        </label>
-                    </div>
-                }
-            </div>
+                @Html.LabelFor(m => m.Dataset.Domein.Naam, "Domein")
+                @Html.DropDownListFor(m => m.Dataset.Domein.Naam, Model.Domeinen, Model.Dataset.Domein.Naam, new { @class = "form-control" })
             </p>
         </div>
     </div>

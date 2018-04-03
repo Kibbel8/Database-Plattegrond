@@ -47,7 +47,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "INSERT INTO comment (Naam, Link, Dataset_ID) VALUES (@Naam, @Link, @Dataset_ID);";
+                command.CommandText = "INSERT INTO Relevante_Link (Naam, Link, Dataset_ID) VALUES (@Naam, @Link, @Dataset_ID);";
 
                 command.Parameters.AddWithValue("@Naam", link.Naam);
                 command.Parameters.AddWithValue("@Link", link.Link);
@@ -66,7 +66,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "UPDATE comment SET Naam = @Naam, Link = @Link WHERE ID = @ID;";
+                command.CommandText = "UPDATE Relevante_Link SET Naam = @Naam, Link = @Link WHERE ID = @ID";
 
                 command.Parameters.AddWithValue("@Naam", link.Naam);
                 command.Parameters.AddWithValue("@Link", link.Link);
