@@ -60,19 +60,19 @@ textarea {
     border-width: 0 0 3px 0px;
 }
 
-.navbar-inverse .navbar-brand {
-    color: #FFFFFF;
-}
+    .navbar-inverse .navbar-brand {
+        color: #FFFFFF;
+    }
 
-.navbar-inverse .navbar-nav > li > a {
-    color: #ffffff;
-}
+    .navbar-inverse .navbar-nav > li > a {
+        color: #ffffff;
+    }
 
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus {
-    color: #76bcf7;
-    background-color: transparent;
-}
+        .navbar-inverse .navbar-nav > li > a:hover,
+        .navbar-inverse .navbar-nav > li > a:focus {
+            color: #76bcf7;
+            background-color: transparent;
+        }
 
 .domein {
     height: 150px;
@@ -315,3 +315,53 @@ hr {
 .btn-primary {
     background-color: #1476C6;
 }
+
+.type-dataset {
+    height: 150px;
+    width: 150px;
+    background-color: #1476C6;
+    color: white;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 25px;
+    float: left;
+    margin: 5px;
+    display: block;
+}
+
+    .type-dataset:hover, .type-dataset:focus {
+        background-color: #1064a8;
+        color: white;
+        text-decoration: none;
+        border: none;
+    }
+
+.type-dataset-selected {
+    background-color: blue;
+}
+
+.type-dataset-item {
+    height: 75px;
+    line-height: 75px;
+    text-align: center;
+    border-top: 1px solid black;
+    border-radius: 5px;
+}
+
+    .type-dataset-item span {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: normal;
+    }
+
+.type-dataset-new {
+    border: dashed 5px #1476C6;
+    color: black;
+    background-color: white;
+}
+
+    .type-dataset-new:hover, .type-dataset-new:focus {
+        background-color: #e6e8ed;
+        color: black;
+        border: dashed 5px #1064a8;
+    }

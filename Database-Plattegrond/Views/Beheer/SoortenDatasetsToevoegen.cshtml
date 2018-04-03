@@ -1,0 +1,23 @@
+﻿@model Database_Plattegrond.Models.SoortDataset
+@{
+    ViewBag.Title = "SoortenDatasetsToevoegen";
+}
+
+<h2>Soort dataset toevoegen</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="col-xs-3">
+        @Html.Label("Type")
+        @Html.TextBoxFor(m => m.Type, new { @class = "form-control " })
+    </div>
+
+    <div class="col-xs-3">
+        @Html.Label("Beheerder")
+        @Html.TextBoxFor(m => m.Beheerder.Naam, new { @class = "form-control " })
+    </div>
+        <div class="clearfix"></div>
+        <div class="domein-bewerken">
+            <input class="form-control btn btn-success domein-bewerken-child" id="submitDataset" name="submitDataset" type="submit" value="Opslaan">
+        </div>
+}

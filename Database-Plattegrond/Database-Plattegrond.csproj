@@ -149,6 +149,7 @@
     <Compile Include="Controllers\ZoekenController.cs" />
     <Compile Include="DatabaseService\CommentDatabaseService.cs" />
     <Compile Include="DatabaseService\DatasetsDatabaseService.cs" />
+    <Compile Include="DatabaseService\SoortDatasetDatabaseService.cs" />
     <Compile Include="DatabaseService\DomeinenDatabaseService.cs" />
     <Compile Include="DatabaseService\RelevantDatabaseService.cs" />
     <Compile Include="DatabaseService\TestDatabaseService.cs" />
@@ -166,6 +167,8 @@
     <Compile Include="Models\DatasetsViewModel.cs" />
     <Compile Include="Models\Domein.cs" />
     <Compile Include="Models\Relevant.cs" />
+    <Compile Include="Models\SoortDataset.cs" />
+    <Compile Include="Models\SoortDatasetsViewModel.cs" />
     <Compile Include="Models\ZoekViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
@@ -231,6 +234,10 @@
     <Content Include="Views\Zoeken\Index.cshtml" />
     <Content Include="Views\Beheer\Index.cshtml" />
     <Content Include="Views\Beheer\Domeinen.cshtml" />
+    <Content Include="Views\Beheer\Databases.cshtml" />
+    <Content Include="Views\Beheer\SoortenDatasets.cshtml" />
+    <Content Include="Views\Beheer\SoortenDatasetsBewerken.cshtml" />
+    <Content Include="Views\Beheer\SoortenDatasetsToevoegen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
