@@ -241,11 +241,6 @@
     <Content Include="Views\Zoeken\Index.cshtml" />
     <Content Include="Views\Beheer\Index.cshtml" />
     <Content Include="Views\Beheer\Domeinen.cshtml" />
-    <Content Include="Views\Beheer\Databases.cshtml" />
-    <Content Include="Views\Beheer\SoortenDatasets.cshtml" />
-    <Content Include="Views\Beheer\SoortenDatasetsBewerken.cshtml" />
-    <Content Include="Views\Beheer\SoortenDatasetsToevoegen.cshtml" />
-    <Content Include="Views\Datasets\NieuweLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
