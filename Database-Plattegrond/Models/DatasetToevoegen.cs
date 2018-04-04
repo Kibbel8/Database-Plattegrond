@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace Database_Plattegrond.Models
 {
-    public class DatasetBewerken
+    public class DatasetToevoegen
     {
         public Dataset Dataset { get; set; }
         public List<SelectListItem> Domeinen { get; set; }

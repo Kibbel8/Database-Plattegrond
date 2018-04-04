@@ -1,9 +1,7 @@
 ﻿using Database_Plattegrond.DatabaseService;
 using Database_Plattegrond.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Database_Plattegrond.Utils;
+using System.IO;
 using System.Web.Mvc;
 
 namespace Database_Plattegrond.Controllers
@@ -22,17 +20,29 @@ namespace Database_Plattegrond.Controllers
         }
 
 
-        public ActionResult DomeinenBewerken(string naam)
+        public ActionResult Bewerken(string domeinNaam = "")
         {
             DomeinenDatabaseService DDS = new DomeinenDatabaseService();
-            Domein domein = DDS.GetDomeinFromNaam(naam);
+            Domein domein = DDS.GetDomeinFromNaam(domeinNaam);
             return View(domein);
         }
 
         [HttpPost]
-        public ActionResult DomeinenBewerken(Domein domein)
+        public ActionResult Bewerken(Domein domein)
         {
             DomeinenDatabaseService DDS = new DomeinenDatabaseService();
+
+            if (domein.PostedFile != null)
+            {
+                ImageUtils imageUtils = new ImageUtils();
+                byte[] imageArray = null;
+                using (var binaryReader = new BinaryReader(Request.Files[0].InputStream))
+                {
+                    imageArray = binaryReader.ReadBytes(Request.Files[0].ContentLength);
+                }
+                domein.Image = imageUtils.ScaleImage(imageArray, 75, 75);
+            }
+
             DDS.UpdateDomein(domein);
             return View(domein);
         }
@@ -48,9 +58,30 @@ namespace Database_Plattegrond.Controllers
         public ActionResult Toevoegen(Domein domein)
         {
             DomeinenDatabaseService DDS = new DomeinenDatabaseService();
+
+            if (domein.PostedFile != null)
+            {
+                ImageUtils imageUtils = new ImageUtils();
+
+                byte[] imageArray = null;
+                using (var binaryReader = new BinaryReader(Request.Files[0].InputStream))
+                {
+                    imageArray = binaryReader.ReadBytes(Request.Files[0].ContentLength);
+                }
+                domein.Image = imageUtils.ScaleImage(imageArray, 75, 75);
+            }
+
             DDS.InsertDomein(domein);
 
-            return RedirectToAction("DomeinenBewerken", new { naam = domein.Naam});
+            return RedirectToAction("Bewerken", new { domeinNaam = domein.Naam });
+        }
+
+        [HttpPost]
+        public ActionResult Verwijderen(string domeinNaam)
+        {
+            DomeinenDatabaseService domeinDatabaseService = new DomeinenDatabaseService();
+            domeinDatabaseService.DeleteDomein(domeinNaam);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Database_Plattegrond.Models
 {
@@ -11,5 +9,6 @@ namespace Database_Plattegrond.Models
         public List<Comment> Comments { get; set; }
         public List<Relevant> Links { get; set; }
         public string NewCommentText { get; set; }
+        public List<SelectListItem> CommentStatussen { get; set; }
     }
 }

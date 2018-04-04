@@ -1,0 +1,26 @@
+﻿@model  Database_Plattegrond.Models.SoortDatasetsViewModel
+@{
+    ViewBag.Title = "SoortenDatasets";
+}
+
+<h2>Soorten datasets</h2>
+
+<a class="type-dataset type-dataset-new" href="SoortenDatasetsToevoegen"/>
+    <div class="type-dataset-naam">
+        Toevoegen
+    </div>
+    <div class="img-container">
+        <img src="~/Images/plus.png" alt="Toevoegen" />
+    </div>
+</a>
+@{ foreach (Database_Plattegrond.Models.SoortDataset soortDataset in Model.SoortDatasets)
+    {
+        <a class="type-dataset" href="/Beheer/SoortenDatasetsBewerken/?type=@soortDataset.Type">
+            <div class="type-dataset-item">
+                <span>Type: @soortDataset.Type</span>
+            </div>
+            <div class="type-dataset-item">
+                Beheerder: @soortDataset.Beheerder.Naam
+            </div>
+        </a>
+    }}

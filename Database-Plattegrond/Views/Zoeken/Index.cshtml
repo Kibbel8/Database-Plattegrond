@@ -4,26 +4,36 @@
 }
 
 <h2>Zoek</h2>
+        @{for (int i = 0; i < Model.ZoekDatasets.Count; i++)
+                {
+                    <div class="dataset-container">
+                        <div class="dataset-bar">
+                            <a href="/Datasets/Details/?id=@Model.ZoekDatasets[i].Id">
+                                <div class="dataset-item col-xs-11">
+                                    @Model.ZoekDatasets[i].Naam
+                                </div>
+                            </a>
+                            <div class="col-xs-1" aria-label="Left Align">
+                                <span class="btn glyphicon glyphicon-triangle-bottom dataset-item" aria-hidden="true" onclick="javascript:myFunction('#test_@i')"></span>
+                            </div>
+                        </div>
+                        <div class="dataset-panel">
+                            <div class="col-xs-12 dataset-panel-item" id="test_@i" hidden>
 
-<table>
-    <thead>
-        <tr>
-            <th style="padding:8px 0">Naam</th>
-            <th style="min-width:90px; max-width:110px; padding:8px 0">Beschrijving</th>
-           @* <th style="max-width:80px; padding:8px 0">Beheerder</th>*@
-            <th style="max-width:100px; padding:8px 0">Bewerken</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{ foreach (Database_Plattegrond.Models.Dataset Dataset in @Model.ZoekDatasets)
-            {
+                                @if (Model.ZoekDatasets[i].LinkOpenData == null)
+                            {
+                                <a class="btn btn-default" href="" style="float:right">Data aanvragen</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-default" href="@Model.ZoekDatasets[i].LinkOpenData" style="float:right">Open data locatie</a>
+                    }
 
-                <tr>
-                    <td><a href="/Datasets/Details/?id=@Dataset.Id">@Dataset.Naam</a></td>
-                    <td>@Dataset.Beschrijving</td>
-                    @*<td>@Dataset.Eigenaar.Naam</td>*@
-                    <td><a href="/Datasets/DatasetBewerken/?id=@Dataset.Id" class="btn btn-default" aria-label="Left Align"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-                </tr>
-            }}
-    </tbody>
-</table>
+                                <header>Beschrijving:</header>
+
+                                @Model.ZoekDatasets[i].Beschrijving
+                            </div>
+                        </div>
+                    </div>
+            }
+                }

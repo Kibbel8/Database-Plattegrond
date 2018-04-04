@@ -23,6 +23,8 @@ namespace Database_Plattegrond.DatabaseService
             };
             command.Parameters.AddWithValue("@ID", id);
 
+            DomeinenDatabaseService DDS = new DomeinenDatabaseService();
+            
             SqlDataReader reader = command.ExecuteReader();
 
             if (reader.Read())
@@ -36,7 +38,8 @@ namespace Database_Plattegrond.DatabaseService
                     LinkOpenData = reader["link_open_data"].ToString(),
                     Zoektermen = reader["zoektermen"].ToString(),
                     Eigenaar = new Gebruiker { Naam = reader["EIGENAARNAAM"].ToString(), Email = reader["EIGENAAREMAIL"].ToString() },
-                    Applicatie = reader["applicatie"].ToString()
+                    Applicatie = reader["applicatie"].ToString(),
+                    Domein = DDS.GetDomeinFromNaam(reader["domein"].ToString())
                 };
 
                 connection.Close();
@@ -54,7 +57,7 @@ namespace Database_Plattegrond.DatabaseService
 
             SqlCommand command = new SqlCommand("", connection)
             {
-                CommandText = "SELECT * FROM dataset"
+                CommandText = "SELECT * FROM dataset ORDER BY Naam"
             };
 
             SqlDataReader reader = command.ExecuteReader();
@@ -90,9 +93,9 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "select ID, Naam, Beschrijving, Applicatie FROM Dataset d JOIN Dataset_Domein dd on d.ID = dd.Dataset_ID where dd.Domein_Naam = @DomeinNaam;";
+                command.CommandText = "select ID, Naam, Beschrijving, Applicatie FROM Dataset WHERE domein = @domein ORDER BY Naam;";
 
-                command.Parameters.AddWithValue("@DomeinNaam", domeinNaam);
+                command.Parameters.AddWithValue("@domein", domeinNaam);
 
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -119,7 +122,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "Update dataset SET naam = @naam, beschrijving = @beschrijving, datum_aangemaakt = @datum_aangemaakt, link_open_data = @link_open_data, zoektermen = @zoektermen, eigenaar = @eigenaar, applicatie = @applicatie WHERE ID=@ID";
+                command.CommandText = "UPDATE dataset SET naam = @naam, beschrijving = @beschrijving, datum_aangemaakt = @datum_aangemaakt, link_open_data = @link_open_data, zoektermen = @zoektermen, eigenaar = @eigenaar, applicatie = @applicatie, domein = @domein WHERE ID=@ID";
 
                 command.Parameters.AddWithValue("@ID", dataset.Id);
 
@@ -147,12 +150,17 @@ namespace Database_Plattegrond.DatabaseService
                 if (dataset.Eigenaar == null)
                     command.Parameters.AddWithValue("@eigenaar", DBNull.Value);
                 else
-                    command.Parameters.AddWithValue("@eigenaar", dataset.Eigenaar);
+                    command.Parameters.AddWithValue("@eigenaar", dataset.Eigenaar.ID);
 
                 if (dataset.Applicatie == null)
                     command.Parameters.AddWithValue("@applicatie", DBNull.Value);
                 else
                     command.Parameters.AddWithValue("@applicatie", dataset.Applicatie);
+
+                if (dataset.Domein == null)
+                    command.Parameters.AddWithValue("@domein", DBNull.Value);
+                else
+                    command.Parameters.AddWithValue("@domein", dataset.Domein.Naam);
 
                 int rowsAffected = command.ExecuteNonQuery();
                 connection.Close();
@@ -195,7 +203,7 @@ namespace Database_Plattegrond.DatabaseService
                 if (dataset.Eigenaar == null)
                     command.Parameters.AddWithValue("@eigenaar", DBNull.Value);
                 else
-                    command.Parameters.AddWithValue("@eigenaar", dataset.Eigenaar);
+                    command.Parameters.AddWithValue("@eigenaar", dataset.Eigenaar.ID);
 
                 if (dataset.Applicatie == null)
                     command.Parameters.AddWithValue("@applicatie", DBNull.Value);
@@ -204,18 +212,23 @@ namespace Database_Plattegrond.DatabaseService
 
                 int rowsAffected = command.ExecuteNonQuery();
 
+                //foreach (Domein domein in dataset.Domeinen)
+                //{
+                //    command.CommandText = "INSERT INTO dataset_domein (Dataset_ID, Domein_Naam) VALUES(@ID, @Domein);";
+                //    if (dataset.Id == null)
+                //        command.Parameters.AddWithValue("@ID", DBNull.Value);
+                //    else
+                //        command.Parameters.AddWithValue("@applicatie", dataset.Applicatie);
+                //}
+
                 //SELECTS de laatste identity die toegevoegd is, dus hiermee krijg je de id van de toegevoegde dataset
                 command.CommandText = "SELECT ident_current('dataset');";
 
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
-                {
                     dataset.Id = Convert.ToInt32((decimal)reader[0]);
-                }
                 else
-                {
                     dataset.Id = -1;
-                }
 
                 connection.Close();
 
@@ -225,7 +238,20 @@ namespace Database_Plattegrond.DatabaseService
 
         public int DeleteDataset(int datasetID)
         {
-            throw new NotImplementedException();
+            SqlConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["ApplicatiePlattegrondConnectionString"].ToString());
+            using (SqlCommand command = new SqlCommand("", connection))
+            {
+                connection.Open();
+                command.CommandText = "DELETE FROM dataset WHERE ID = @ID";
+
+                command.Parameters.AddWithValue("@ID", datasetID);
+
+
+                int rowsAffected = command.ExecuteNonQuery();
+                connection.Close();
+
+                return rowsAffected;
+            }
         }
 
         public int InsertDatasetDomein(int datasetID, string domeinNaam)
