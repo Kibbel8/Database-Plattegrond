@@ -57,7 +57,7 @@ namespace Database_Plattegrond.DatabaseService
 
             SqlCommand command = new SqlCommand("", connection)
             {
-                CommandText = "SELECT * FROM dataset"
+                CommandText = "SELECT * FROM dataset ORDER BY Naam"
             };
 
             SqlDataReader reader = command.ExecuteReader();
@@ -93,7 +93,7 @@ namespace Database_Plattegrond.DatabaseService
             using (SqlCommand command = new SqlCommand("", connection))
             {
                 connection.Open();
-                command.CommandText = "select ID, Naam, Beschrijving, Applicatie FROM Dataset WHERE domein = @domein;";
+                command.CommandText = "select ID, Naam, Beschrijving, Applicatie FROM Dataset WHERE domein = @domein ORDER BY Naam;";
 
                 command.Parameters.AddWithValue("@domein", domeinNaam);
 
